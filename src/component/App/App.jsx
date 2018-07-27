@@ -1,15 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from '../Header/Header';
-import './App.css';
+import './App.scss';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header title="ToDo list"/>
-      </div>
-    );
-  }
-}
+const App = () => (
+    <div className="App">
+        <Header title="ToDo list" link="#" />
+    </div>
+  );
 
 export default App;

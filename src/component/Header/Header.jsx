@@ -1,14 +1,27 @@
-import React, { Component } from 'react';
-import './Header.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import './Header.scss';
 
-class Header extends Component {
-  render() {
-    return (
-        <header className="App-header">
-          <h1 className="App-title">{this.props.title}</h1>
-        </header>
-    );
-  }
-}
+const Header = props => (
+    <header>
+        <div className="container">
+            <div className="title">
+                <a href={props.link}>
+                    <h1>{props.title}</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+);
+
+Header.propTypes = {
+    title: PropTypes.string,
+    link: PropTypes.string,
+};
+
+Header.defaultProps = {
+    title: '',
+    link: '',
+};
 
 export default Header;

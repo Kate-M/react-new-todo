@@ -7,7 +7,6 @@ const appContainer = window.document.querySelector('.AppContainer');
 ReactDOM.unmountComponentAtNode(appContainer);
 
 ReactDOM.render(
-   <App />,
-   appContainer
+    <App />,
+    appContainer,
 );
-

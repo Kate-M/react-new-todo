@@ -1,0 +1,16 @@
+$primary-color: #c2efeb;
+$secondary-color: #736477;
+
+header {
+    background-color: $primary-color;
+    padding: 20px 0;
+    color: white;
+    width: 100%;
+}
+  
+.title {
+    color: $secondary-color;
+    font-size: 2rem;
+    text-align: center;
+}
+  
