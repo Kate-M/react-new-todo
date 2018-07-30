@@ -1,16 +1,37 @@
-$primary-color: #c2efeb;
-$secondary-color: #736477;
+@import '../../styles/base/variables.scss';
+@import '../../styles/base/mixins.scss';
 
 header {
-    background-color: $primary-color;
+    background: $color_main;
     padding: 20px 0;
-    color: white;
-    width: 100%;
+    @media screen and (max-width: 767px) {
+        padding: 10px 0;
+    }
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    h1 {
+        font-size: 2rem;
+        color:$color_secondary;
+    
+    }
+    .menu-btn {
+        display: none;
+        @media screen and (max-width: 767px) {
+            display: block;
+            cursor: pointer;
+        }
+    }
+    .icon {
+        .material-icons{
+            user-select: none;
+            color:#EEFAF9;
+            font-size: 3.5rem;
+            border-radius:50%;
+            padding: 5px;
+            background: $color_secondary;
+        }
+    }
 }
-  
-.title {
-    color: $secondary-color;
-    font-size: 2rem;
-    text-align: center;
-}
-  

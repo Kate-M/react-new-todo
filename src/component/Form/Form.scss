@@ -1,0 +1,10 @@
+.form {
+    display: flex;
+}
+.field-wrap{
+    flex: 1 1 auto;
+    display: inline-block;
+    @media screen and (max-width: 767px) {
+        width:100%;
+    }
+}

@@ -142,9 +142,7 @@ module.exports = {
                     fallback: 'style-loader',
                     use: [cssLoaders],
                 }),
-                
             },
-            
         ],
     },
     plugins: [
