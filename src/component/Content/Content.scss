@@ -1,3 +1,6 @@
+@import '../../styles/base/variables.scss';
+@import '../../styles/base/mixins.scss';
+
 main {
     flex: 1 0 auto;
     padding: 40px 0;
@@ -7,5 +10,57 @@ main {
     }
     .container {
         position: relative;
+    }
+}
+
+.controls-task-main{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+    z-index: 5;
+    @media screen and (max-width: 767px) {
+        display: none;
+        position: absolute;
+        top:0;
+        left: 0;
+        transition: transform .3s;
+        padding: 0 20px;
+        background: $color_white;
+        z-index: 2;
+    }
+    .control-item {
+        height: 35px;
+        position: relative;
+        @media screen and (max-width: 767px) {
+            width:100%;
+        }
+        &:not(:last-child){
+            @media screen and (max-width: 767px) {
+                margin-bottom: 10px;
+            }
+        }
+    }
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    // .field-wrap{
+    //     @media screen and (max-width: 767px) {
+    //         width:100%;
+    //     }
+    // }
+    input {
+        min-width: 200px;
+        height: 100%;
+        border: 1px solid #E7E7E7;
+        border-right: 0;
+        padding: 0 5px;
+        border-radius:  3px 0 0 3px;
+        @media screen and (max-width: 767px) {
+            width:100%;
+        }
     }
 }

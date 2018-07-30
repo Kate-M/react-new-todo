@@ -18,9 +18,7 @@ class Input extends Component {
         // const { value } = this.state;
         const { action } = this.props;
         return (
-            <div>
-                <input className={`control-item ${action}-field`} placeholder={this.state.value} onChange={this.handleChange} />
-            </div>
+            <input className={`control-item ${action}-field`} placeholder={this.state.value} onChange={this.handleChange} />
         );
     }
 }

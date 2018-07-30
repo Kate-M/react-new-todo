@@ -2,33 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Submit from '../Submit/Submit';
 import Input from '../Input/Input';
+import TaskContainer from '../TaskContainer/TaskContainer';
 import '../../styles/common-style.scss';
 import './Form.scss';
 
-// const Form = ({ action, handleChange }) => (
-//     <form className={`form ${action}-form`}>
-//         <fieldset className="field-wrap">
-//             <Input action={action} onChange={handleChange} />
-//         </fieldset>
-//         <Submit action={action} />
-//     </form>
-//   );
-
-// Form.propTypes = {
-//     action: PropTypes.string,
-//     handleChange: PropTypes.func,
-// };
-
-// Form.defaultProps = {
-//     action: '',
-//     handleChange: () => {},
-// };
 class Form extends Component {
     constructor(props) {
         super(props);
+        this.taskList = JSON.parse(window.localStorage.getItem('todo'));
         this.state = {
             value: 'Todo',
-            tasks: [],
+            tasks: (this.taskList || []),
         };
         this.updateData = this.updateData.bind(this);
         this.submitData = this.submitData.bind(this);
@@ -36,16 +20,17 @@ class Form extends Component {
     updateData(event) {
         this.setState({ value: event });
     }
-    submitData() {
+    submitData(e) {
+        e.preventDefault();
         const task = this.state.value;
         this.state.tasks.push(task);
+        this.setState({ tasks: this.taskList });
         const taskData = JSON.stringify(this.state.tasks);
-        localStorage.setItem('todo', taskData);
-        console.log(JSON.parse(localStorage.getItem('todo')));
+        window.localStorage.setItem('todo', taskData);
     }
     render() {
         const { action } = this.props;
-        this.state.tasks = JSON.parse(localStorage.getItem('todo')) || [];
+        this.state.tasks = JSON.parse(window.localStorage.getItem('todo')) || [];
         return (
             <div>
                 <form className={`form ${action}-form`} onSubmit={this.submitData}>
@@ -54,7 +39,7 @@ class Form extends Component {
                     </fieldset>
                     <Submit action={action} />
                 </form>
-                <p>{this.state.tasks}</p>
+                <TaskContainer todos={this.state.tasks} />
             </div>
         );
     }
