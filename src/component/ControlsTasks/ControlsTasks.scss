@@ -1,0 +1,5 @@
+.add-btn {
+    &::after {
+        content: 'add';
+    }
+}

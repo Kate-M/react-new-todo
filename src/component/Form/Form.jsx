@@ -7,6 +7,7 @@ import './Form.scss';
 
 const Form = ({ action, value, onTextChange, onSubmitTask }) => {
     const onValueChange = e => onTextChange(e);
+
     const onValueSubmit = e => onSubmitTask(e);
 
     return (

@@ -8,11 +8,12 @@ class Input extends Component {
         this.state = {
             placeholder: 'Add a Task',
         };
-        this.handleTextChange = this.handleTextChange.bind(this);
     }
-    handleTextChange(e) {
+
+    handleTextChange = (e) => {
         this.props.onTextChange(e.target.value);
     }
+
     render() {
         const { action, value } = this.props;
         const { placeholder } = this.state;

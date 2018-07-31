@@ -10,6 +10,9 @@ const Header = props => (
                 <a href={props.link}>
                     <h1>{props.title}</h1>
                 </a>
+                <button className="menu-btn icon">
+                    <i className="material-icons">subject</i>
+                </button>
             </div>
         </div>
     </header>

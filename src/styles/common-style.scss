@@ -16,6 +16,9 @@ a {
       border-color:transparent; 
     }
 }
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
 h1,figure,fieldset{
       margin: 0;
       padding: 0;
@@ -87,9 +90,6 @@ img {
     flex-direction: column;
     height: 100%;
 }
-// .content {
-//     flex: 1 0 auto;
-// }
 .container {
     width: 100%;
     margin: 0 auto;
@@ -117,9 +117,9 @@ img {
     position: relative;
     &::after {
         @include center-all;
-        content: 'add';
+        content: '';
         font: {
-            size: 1.8rem;
+            size: 2.2rem;
             family: "Material Icons";
             feature-settings: 'liga';
         }
@@ -153,8 +153,8 @@ img {
     }
 }
 .btn-sm {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius:50%;
     margin-left: 10px;
 }

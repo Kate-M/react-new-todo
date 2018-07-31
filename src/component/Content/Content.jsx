@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ControlsTasks from '../ControlsTasks/ControlsTasks';
-import TaskContainer from "../TaskContainer/TaskContainer";
+import TaskContainer from '../TaskContainer/TaskContainer';
 import store from '../store';
 import '../../styles/common-style.scss';
 import './Content.scss';
@@ -13,13 +13,10 @@ class Content extends Component {
             value: '',
             tasks: [...store],
         };
-        this.onTextChange = this.onTextChange.bind(this);
-        this.onSubmitTask = this.onSubmitTask.bind(this);
     }
-    onTextChange(e) {
-        this.setState({ value: e });
-    }
-    onSubmitTask(e) {
+    onTextChange = (e) => { this.setState({ value: e }); }
+
+    onSubmitTask = (e) => {
         e.preventDefault();
         if (this.state.value) {
             const task = this.state.value;
@@ -28,10 +25,15 @@ class Content extends Component {
                 value: '',
                 tasks: this.state.tasks,
             });
-            const taskData = JSON.stringify(this.state.tasks);
-            window.localStorage.setItem('todo', taskData);
+            this.sendToDB();
         }
     }
+
+    sendToDB = () => {
+        const taskData = JSON.stringify(this.state.tasks);
+        window.localStorage.setItem('todo', taskData);
+    }
+
     render() {
         const { action } = this.props;
         const { value, tasks } = this.state;
@@ -58,5 +60,6 @@ Content.propTypes = {
 Content.defaultProps = {
     action: '',
 };
+
 export default Content;
 
