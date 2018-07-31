@@ -5,9 +5,9 @@ import '../../styles/common-style.scss';
 import './ControlsTasks.scss';
 
 const ControlTasks = ({ value, onTextChange, onSubmitTask }) => {
-    const onValueChange = e => onTextChange(e);
+    const onValueChange = event => onTextChange(event);
 
-    const onValueSubmit = e => onSubmitTask(e);
+    const onValueSubmit = event => onSubmitTask(event);
 
     return (
         <section className="controls-task-main">

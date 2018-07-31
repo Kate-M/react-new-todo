@@ -6,7 +6,7 @@ import '../../styles/common-style.scss';
 import './App.scss';
 
 const App = () => (
-    <div className="App">
+    <div className="wrapper">
         <Header title="ToDo list" link="#" />
         <Content />
         <Footer />

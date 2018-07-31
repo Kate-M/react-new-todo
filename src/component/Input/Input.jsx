@@ -10,8 +10,8 @@ class Input extends Component {
         };
     }
 
-    handleTextChange = (e) => {
-        this.props.onTextChange(e.target.value);
+    handleTextChange = (event) => {
+        this.props.onTextChange(event.target.value);
     }
 
     render() {

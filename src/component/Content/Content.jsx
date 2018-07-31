@@ -14,12 +14,15 @@ class Content extends Component {
             tasks: [...store],
         };
     }
-    onTextChange = (e) => { this.setState({ value: e }); }
+    onTextChange = (event) => { this.setState({ value: event }); }
 
-    onSubmitTask = (e) => {
-        e.preventDefault();
+    onSubmitTask = (event) => {
+        event.preventDefault();
         if (this.state.value) {
-            const task = this.state.value;
+            const task = {
+                id: Date.now() + this.state.value,
+                name: this.state.value,
+            };
             this.state.tasks.unshift(task);
             this.setState({
                 value: '',
@@ -27,6 +30,34 @@ class Content extends Component {
             });
             this.sendToDB();
         }
+    }
+
+    switchAction = (action, id, event) => {
+        event.preventDefault();
+        switch (action) {
+        case 'delete':
+            this.deleteTask(id);
+            break;
+        case 'edit':
+            console.log('edit');
+            break;
+        case 'in-process':
+            console.log('in-process');
+            break;
+        case 'complete':
+            console.log('complete');
+            break;
+        default:
+            console.log('default');
+        }
+    }
+
+    deleteTask = (id) => {
+        const currentTaskList = this.state.tasks.filter(e => e.id !== id);
+        this.setState({
+            tasks: currentTaskList,
+        });
+        this.sendToDB();
     }
 
     sendToDB = () => {
@@ -46,7 +77,7 @@ class Content extends Component {
                         onTextChange={this.onTextChange}
                         value={value}
                     />
-                    <TaskContainer todos={tasks} />
+                    <TaskContainer todos={tasks} switchAction={this.switchAction} />
                 </div>
             </main>
         );

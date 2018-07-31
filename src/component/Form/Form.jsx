@@ -6,9 +6,9 @@ import '../../styles/common-style.scss';
 import './Form.scss';
 
 const Form = ({ action, value, onTextChange, onSubmitTask }) => {
-    const onValueChange = e => onTextChange(e);
+    const onValueChange = event => onTextChange(event);
 
-    const onValueSubmit = e => onSubmitTask(e);
+    const onValueSubmit = event => onSubmitTask(event);
 
     return (
         <div className={`control-item ${action}-task`}>

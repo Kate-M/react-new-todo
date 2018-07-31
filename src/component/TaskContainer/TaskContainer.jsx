@@ -4,18 +4,24 @@ import TaskItem from '../TaskItem/TaskItem';
 import '../../styles/common-style.scss';
 import './TaskContainer.scss';
 
-const TaskContainer = ({ todos }) => (
-    <section className="tasks-container">
-        { todos.map((e, i) => <TaskItem key={i} todo={e} />) }
-    </section>
-  );
+const TaskContainer = ({ todos, switchAction }) => {
+    const onSetAction = (action, id, event) => { switchAction(action, id, event); };
+
+    return (
+        <section className="tasks-container">
+            { todos.map(e => <TaskItem key={e.id} todo={e} onInitAction={onSetAction} />) }
+        </section>
+    );
+};
 
 TaskContainer.propTypes = {
     todos: PropTypes.array,
+    switchAction: PropTypes.func,
 };
 
 TaskContainer.defaultProps = {
     todos: [],
+    switchAction: () => { },
 };
 
 export default TaskContainer;
