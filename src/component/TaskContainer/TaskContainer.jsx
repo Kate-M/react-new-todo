@@ -6,7 +6,7 @@ import './TaskContainer.scss';
 
 const TaskContainer = ({ todos }) => (
     <section className="tasks-container">
-        { todos.reverse().map((e, i) => <TaskItem key={i} todo={e} />) }
+        { todos.map((e, i) => <TaskItem key={i} todo={e} />) }
     </section>
   );
 

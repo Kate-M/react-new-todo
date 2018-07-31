@@ -6,31 +6,37 @@ class Input extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 'Add a Task',
+            placeholder: 'Add a Task',
         };
-        this.handleChange = this.handleChange.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this);
     }
-    handleChange(event) {
-        // this.setState({ value: event.target.value });
-        this.props.updateData(event.target.value);
+    handleTextChange(e) {
+        this.props.onTextChange(e.target.value);
     }
     render() {
-        // const { value } = this.state;
-        const { action } = this.props;
+        const { action, value } = this.props;
+        const { placeholder } = this.state;
         return (
-            <input className={`control-item ${action}-field`} placeholder={this.state.value} onChange={this.handleChange} />
+            <input
+                className={`control-item ${action}-field`}
+                placeholder={placeholder}
+                value={value}
+                onChange={this.handleTextChange}
+            />
         );
     }
 }
 
 Input.propTypes = {
     action: PropTypes.string,
-    updateData: PropTypes.func,
+    value: PropTypes.string,
+    onTextChange: PropTypes.func,
 };
 
 Input.defaultProps = {
     action: '',
-    updateData: () => {},
+    value: '',
+    onTextChange: () => {},
 };
 
 export default Input;
