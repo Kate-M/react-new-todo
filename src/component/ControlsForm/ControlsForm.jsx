@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Submit from '../Submit/Submit';
 import Input from '../Input/Input';
 import '../../styles/common-style.scss';
-import './Form.scss';
+import './ControlsForm.scss';
 
-const Form = ({ action, value, onTextChange, onSubmitTask }) => {
+const ControlsForm = ({ action, value, onTextChange, onSubmitTask }) => {
     const onValueChange = event => onTextChange(event);
 
     const onValueSubmit = event => onSubmitTask(event);
@@ -27,18 +27,18 @@ const Form = ({ action, value, onTextChange, onSubmitTask }) => {
     );
 };
 
-Form.propTypes = {
+ControlsForm.propTypes = {
     action: PropTypes.string,
     value: PropTypes.string,
     onTextChange: PropTypes.func,
     onSubmitTask: PropTypes.func,
 };
 
-Form.defaultProps = {
+ControlsForm.defaultProps = {
     action: '',
     value: '',
     onTextChange: () => { },
     onSubmitTask: () => { },
 };
 
-export default Form;
+export default ControlsForm;

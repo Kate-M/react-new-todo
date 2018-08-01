@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import Checkbox from '../Checkbox/Checkbox';
 import '../../styles/common-style.scss';
 import './TaskItem.scss';
 
@@ -11,17 +12,43 @@ class TaskItem extends Component {
         this.state = { ...this.props.todo };
     }
 
-    onActionSubmit = (action, event) => this.props.onInitAction(
-        action,
-        this.props.todo.id,
-        this.state.name,
-        event,
-    );
+    onActionSubmit = (action, event) => {
+        this.props.onInitAction(
+            action,
+            this.props.todo.id,
+            this.state.name,
+            event,
+        );
+    };
 
     onTextChange = (event) => {
         this.setState({
             name: event,
         });
+    }
+
+    setComplete = (action, event) => {
+        this.onActionSubmit(action, event);
+    }
+
+    switchAction = (action, event) => {
+        event.preventDefault();
+        switch (action) {
+        case 'edit':
+            this.editTask();
+            break;
+        case 'cancel':
+            this.cancelTask();
+            break;
+        case 'save':
+            this.saveChangeTask(action, event);
+            break;
+        case 'delete':
+            this.deleteTask(action, event);
+            break;
+        default:
+            console.log('default');
+        }
     }
 
     editTask = () => {
@@ -37,30 +64,41 @@ class TaskItem extends Component {
         });
     }
 
+    saveChangeTask = (action, event) => {
+        this.setState({
+            editable: false,
+        });
+        this.onActionSubmit(action, event);
+    }
+
+    deleteTask = (action, event) => {
+        this.onActionSubmit(action, event);
+    }
+
     renderDefault() {
-        const { name } = this.state;
+        const { name, status } = this.state;
         return (
             <div className="tasks-wrap">
-                <div className="form task-form">
+                <form className="task-item">
                     <div className="field-wrap">
-                        <p className="field name-field" data-id="">{name}</p>
+                        <Checkbox onActionSubmit={this.setComplete} status={status} />
+                        <p className="field name-field">{name}</p>
                     </div>
                     <div className="btn-group">
                         <button className="btn btn-sm btn-status-item" data-state="status-task" data-status="0" />
-                        <Button action="edit" onActionSubmit={this.editTask} />
-                        <Button action="delete" onActionSubmit={this.onActionSubmit} />
+                        <Button action="edit" onActionSubmit={this.switchAction} />
+                        <Button action="delete" onActionSubmit={this.switchAction} />
                     </div>
-                </div>
+                </form>
             </div>
         );
     }
     renderForm() {
-        const { name, editable } = this.state;
+        const { name } = this.state;
         return (
-            <div className="tasks-wrap" data-mode={editable}>
-                <form className="form task-form">
+            <div className="tasks-wrap">
+                <form className="task-item">
                     <div className="field-wrap">
-                        {/* <input type="text" className="field edit-name-field" value={todo.name} /> */}
                         <Input
                             optionalClass="field"
                             action="edit"
@@ -69,8 +107,8 @@ class TaskItem extends Component {
                         />
                     </div>
                     <div className="btn-group">
-                        <Button action="save" onActionSubmit={this.onActionSubmit} />
-                        <Button action="cancel" onActionSubmit={this.cancelTask} />
+                        <Button action="save" onActionSubmit={this.switchAction} />
+                        <Button action="cancel" onActionSubmit={this.switchAction} />
                     </div>
                 </form>
             </div>

@@ -46,45 +46,9 @@
     }
 }
 
-.btn-status-complete-item[checked="checked"]+.name-field {
-    text-decoration: line-through;
-}
 .complete {
     .btn-status-item {
         display: none;
     }
 }
-.btn-status-complete-item {
-    width: 13px;
-    height: 13px;
-    border: 1px solid #E7E7E7;
-    background: $color_white;
-    margin-right: 10px;
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
-    &::-ms-check {
-        display: none;
-    }
-    &[checked="checked"] {
-        &::-ms-check {
-            display: block;
-        }
-        border: 1px solid #9ED5C0;
-        &:after {
-            content: '\e909';
-            display: block;
-            color:#9ED5C0;
-            position: absolute;
-            top: 0;
-            left:0;
-            font: {
-                size: 1.2rem;
-                family: $font_ico;
-                weight: bold;
-            }
-                
-        }
-    }
-}
+

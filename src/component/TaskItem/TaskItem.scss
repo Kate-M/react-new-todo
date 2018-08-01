@@ -1,7 +1,15 @@
 @import '../../styles/base/variables.scss';
 @import '../../styles/base/mixins.scss';
 
-.task-form {
+.tasks-wrap {
+    .field-wrap {
+        @include center-all;
+        flex: 1 1 auto;
+    }
+}
+
+.task-item {
+    display: flex;
     justify-content: space-between;
     padding: 10px;
     border: 1px solid #e7e7e7;

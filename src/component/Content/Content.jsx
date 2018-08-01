@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ControlsTasks from '../ControlsTasks/ControlsTasks';
 import TaskContainer from '../TaskContainer/TaskContainer';
 import store from '../store';
+import { STATUS_DEFAULT, STATUS_COMPLETE } from '../status';
 import '../../styles/common-style.scss';
 import './Content.scss';
 
@@ -22,6 +23,7 @@ class Content extends Component {
             const task = {
                 id: Date.now() + this.state.value,
                 name: this.state.value,
+                status: STATUS_DEFAULT,
             };
             this.state.tasks.unshift(task);
             this.setState({
@@ -33,34 +35,37 @@ class Content extends Component {
     }
 
     switchAction = (action, id, name, event) => {
-        event.preventDefault();
         switch (action) {
         case 'delete':
-            this.deleteTask(id);
+            this.deleteTask(id, event);
             break;
         case 'save':
-            this.saveTask(id, name);
+            this.saveTask(id, name, event);
             break;
         case 'in-process':
             console.log('in-process');
             break;
         case 'complete':
-            console.log('complete');
+            this.setComplete(id);
             break;
         default:
             console.log('default');
         }
     }
 
-    deleteTask = (id) => {
-        const currentTaskList = this.state.tasks.filter(e => e.id !== id);
+    deleteTask = (id, event) => {
+        event.preventDefault();
+        const currentTaskList = this.state.tasks.filter(e =>
+            e.id !== id,
+        );
         this.setState({
             tasks: currentTaskList,
         });
         this.sendToDB(currentTaskList);
     }
 
-    saveTask = (id, name) => {
+    saveTask = (id, name, event) => {
+        event.preventDefault();
         this.state.tasks.forEach((e) => {
             if (e.id === id) {
                 e.name = name;
@@ -73,8 +78,21 @@ class Content extends Component {
         this.sendToDB(this.state.tasks);
     }
 
-    saveRenamedTask = (currentTaskList) => {
-        this.sendToDB(currentTaskList);
+    setComplete = (id) => {
+        this.state.tasks.forEach((e) => {
+            if (e.id === id) {
+                if (e.status === STATUS_COMPLETE) {
+                    e.status = STATUS_DEFAULT;
+                } else {
+                    e.status = STATUS_COMPLETE;
+                }
+            }
+        });
+        this.setState({
+            value: '',
+            tasks: this.state.tasks,
+        });
+        this.sendToDB(this.state.tasks);
     }
 
     sendToDB = (tasks) => {

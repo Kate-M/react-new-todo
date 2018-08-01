@@ -1,0 +1,46 @@
+@import '../../styles/base/variables.scss';
+@import '../../styles/base/mixins.scss';
+
+.btn-status-complete {
+    width: 13px;
+    height: 13px;
+    border: 1px solid #e7e7e7;
+    background: #fff;
+    margin-right: 5px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.btn-status-complete[data-checked="checked"]+.name-field {
+    text-decoration: line-through;
+}
+
+.btn-status-complete {
+    cursor: pointer;
+    &::-ms-check {
+        display: none;
+    }
+    &[data-checked="checked"] {
+        &::-ms-check {
+            display: block;
+        }
+        border: 1px solid #9ED5C0;
+        &:after {
+            content: 'done';
+            display: block;
+            color:#9ED5C0;
+            position: absolute;
+            top: 0;
+            left:0;
+            font: {
+                size: 1.2rem;
+                family: "Material Icons";
+                weight: bold;
+                feature-settings: 'liga';
+            }
+                
+        }
+    }
+}

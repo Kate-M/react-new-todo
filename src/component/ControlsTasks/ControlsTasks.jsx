@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Form from '../Form/Form';
+import ControlsForm from '../ControlsForm/ControlsForm';
 import '../../styles/common-style.scss';
 import './ControlsTasks.scss';
 
@@ -11,7 +11,7 @@ const ControlTasks = ({ value, onTextChange, onSubmitTask }) => {
 
     return (
         <section className="controls-task-main">
-            <Form
+            <ControlsForm
                 action="add"
                 onSubmitTask={onValueSubmit}
                 onTextChange={onValueChange}
