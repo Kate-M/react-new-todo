@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../../styles/common-style.scss';
+import './Input.scss';
 
 class Input extends Component {
     constructor(props) {
@@ -15,11 +16,11 @@ class Input extends Component {
     }
 
     render() {
-        const { action, value } = this.props;
+        const { action, optionalClass, value } = this.props;
         const { placeholder } = this.state;
         return (
             <input
-                className={`control-item ${action}-field`}
+                className={`${optionalClass} ${action}-field`}
                 placeholder={placeholder}
                 value={value}
                 onChange={this.handleTextChange}
@@ -30,12 +31,14 @@ class Input extends Component {
 
 Input.propTypes = {
     action: PropTypes.string,
+    optionalClass: PropTypes.string,
     value: PropTypes.string,
     onTextChange: PropTypes.func,
 };
 
 Input.defaultProps = {
     action: '',
+    optionalClass: '',
     value: '',
     onTextChange: () => {},
 };

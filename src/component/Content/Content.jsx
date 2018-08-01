@@ -14,9 +14,9 @@ class Content extends Component {
             tasks: [...store],
         };
     }
-    onTextChange = (event) => { this.setState({ value: event }); }
+    newTaskValueChange = (event) => { this.setState({ value: event }); }
 
-    onSubmitTask = (event) => {
+    addTask = (event) => {
         event.preventDefault();
         if (this.state.value) {
             const task = {
@@ -32,17 +32,14 @@ class Content extends Component {
         }
     }
 
-    switchAction = (action, id, event) => {
+    switchAction = (action, id, name, event) => {
         event.preventDefault();
         switch (action) {
         case 'delete':
             this.deleteTask(id);
             break;
-        case 'edit':
-            this.editTask(id);
-            break;
-        case 'cancel':
-            this.cancelTask(id);
+        case 'save':
+            this.saveTask(id, name);
             break;
         case 'in-process':
             console.log('in-process');
@@ -63,28 +60,21 @@ class Content extends Component {
         this.sendToDB(currentTaskList);
     }
 
-    editTask = (id) => {
+    saveTask = (id, name) => {
         this.state.tasks.forEach((e) => {
             if (e.id === id) {
-                e.editable = true;
+                e.name = name;
             }
-        },
-    );
+        });
         this.setState({
+            value: '',
             tasks: this.state.tasks,
         });
+        this.sendToDB(this.state.tasks);
     }
 
-    cancelTask = (id) => {
-        this.state.tasks.forEach((e) => {
-            if (e.id === id) {
-                e.editable = !e.editable;
-            }
-        },
-    );
-        this.setState({
-            tasks: this.state.tasks,
-        });
+    saveRenamedTask = (currentTaskList) => {
+        this.sendToDB(currentTaskList);
     }
 
     sendToDB = (tasks) => {
@@ -100,11 +90,14 @@ class Content extends Component {
                 <div className="container">
                     <ControlsTasks
                         action={action}
-                        onSubmitTask={this.onSubmitTask}
-                        onTextChange={this.onTextChange}
+                        onSubmitTask={this.addTask}
+                        onTextChange={this.newTaskValueChange}
                         value={value}
                     />
-                    <TaskContainer todos={tasks} switchAction={this.switchAction} />
+                    <TaskContainer
+                        todos={tasks}
+                        switchAction={this.switchAction}
+                    />
                 </div>
             </main>
         );

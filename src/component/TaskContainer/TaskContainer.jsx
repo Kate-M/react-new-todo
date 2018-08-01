@@ -5,7 +5,8 @@ import '../../styles/common-style.scss';
 import './TaskContainer.scss';
 
 const TaskContainer = ({ todos, switchAction }) => {
-    const onSetAction = (action, id, event) => { switchAction(action, id, event); };
+
+    const onSetAction = (action, id, name, event) => { switchAction(action, id, name, event); };
     return (
         <section className="tasks-container">
             { todos.map(e =>

@@ -15,6 +15,7 @@ const Form = ({ action, value, onTextChange, onSubmitTask }) => {
             <form className={`form ${action}-form`} onSubmit={onValueSubmit}>
                 <fieldset className="field-wrap">
                     <Input
+                        optionalClass="control-item"
                         action={action}
                         onTextChange={onValueChange}
                         value={value}
