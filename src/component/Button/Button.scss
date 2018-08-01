@@ -1,0 +1,90 @@
+@import '../../styles/base/variables.scss';
+@import '../../styles/base/mixins.scss';
+
+.btn-status-item {
+    @include button-color(#FAC174);
+    &::after {
+        content: 'cached';
+    }
+}
+.btn-edit-item {
+    @include button-color(#27A4DE);
+    &::after {
+        content: 'edit';
+    }
+}
+.btn-delete-item {
+    @include button-color(#F1646C);
+    &::after {
+        content: 'delete_forever';
+    }
+}
+.btn-save-item {
+    @include button-color(#9ED5C0);
+    &::after {
+        content: 'save';
+    }    
+}
+.btn-cancel-item {
+    @include button-color(#27A4DE);
+    &::after {
+        content: 'close';
+        font: {
+            weight: bold;
+        }
+    }
+}
+
+.btn-status-item {
+    opacity: 1;
+}
+.btn-status-item[data-status = '0'],
+.btn-status-item[data-status = '2'] {
+    opacity: .3;
+    &:hover {
+        opacity: .8;
+    }
+}
+
+.btn-status-complete-item[checked="checked"]+.name-field {
+    text-decoration: line-through;
+}
+.complete {
+    .btn-status-item {
+        display: none;
+    }
+}
+.btn-status-complete-item {
+    width: 13px;
+    height: 13px;
+    border: 1px solid #E7E7E7;
+    background: $color_white;
+    margin-right: 10px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    &::-ms-check {
+        display: none;
+    }
+    &[checked="checked"] {
+        &::-ms-check {
+            display: block;
+        }
+        border: 1px solid #9ED5C0;
+        &:after {
+            content: '\e909';
+            display: block;
+            color:#9ED5C0;
+            position: absolute;
+            top: 0;
+            left:0;
+            font: {
+                size: 1.2rem;
+                family: $font_ico;
+                weight: bold;
+            }
+                
+        }
+    }
+}

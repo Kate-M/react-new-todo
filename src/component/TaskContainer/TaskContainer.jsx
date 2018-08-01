@@ -6,10 +6,14 @@ import './TaskContainer.scss';
 
 const TaskContainer = ({ todos, switchAction }) => {
     const onSetAction = (action, id, event) => { switchAction(action, id, event); };
-
     return (
         <section className="tasks-container">
-            { todos.map(e => <TaskItem key={e.id} todo={e} onInitAction={onSetAction} />) }
+            { todos.map(e =>
+            (<TaskItem
+                key={e.id}
+                todo={e}
+                onInitAction={onSetAction}
+            />)) }
         </section>
     );
 };

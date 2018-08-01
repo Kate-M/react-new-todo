@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import '../../styles/common-style.scss';
 import './Button.scss';
 
-const Button = ({ action, onActionSubmit2 }) => {
-    const onActionCreate = event => onActionSubmit2(action, event);
+const Button = ({ action, onActionSubmit }) => {
+    const onActionCreate = event => onActionSubmit(action, event);
 
     return (
         <button
@@ -17,12 +17,12 @@ const Button = ({ action, onActionSubmit2 }) => {
 
 Button.propTypes = {
     action: PropTypes.string,
-    onActionSubmit2: PropTypes.func,
+    onActionSubmit: PropTypes.func,
 };
 
 Button.defaultProps = {
     action: '',
-    onActionSubmit2: () => { },
+    onActionSubmit: () => { },
 };
 
 export default Button;

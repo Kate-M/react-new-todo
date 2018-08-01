@@ -28,7 +28,7 @@ class Content extends Component {
                 value: '',
                 tasks: this.state.tasks,
             });
-            this.sendToDB();
+            this.sendToDB(this.state.tasks);
         }
     }
 
@@ -39,7 +39,10 @@ class Content extends Component {
             this.deleteTask(id);
             break;
         case 'edit':
-            console.log('edit');
+            this.editTask(id);
+            break;
+        case 'cancel':
+            this.cancelTask(id);
             break;
         case 'in-process':
             console.log('in-process');
@@ -57,11 +60,35 @@ class Content extends Component {
         this.setState({
             tasks: currentTaskList,
         });
-        this.sendToDB();
+        this.sendToDB(currentTaskList);
     }
 
-    sendToDB = () => {
-        const taskData = JSON.stringify(this.state.tasks);
+    editTask = (id) => {
+        this.state.tasks.forEach((e) => {
+            if (e.id === id) {
+                e.editable = true;
+            }
+        },
+    );
+        this.setState({
+            tasks: this.state.tasks,
+        });
+    }
+
+    cancelTask = (id) => {
+        this.state.tasks.forEach((e) => {
+            if (e.id === id) {
+                e.editable = !e.editable;
+            }
+        },
+    );
+        this.setState({
+            tasks: this.state.tasks,
+        });
+    }
+
+    sendToDB = (tasks) => {
+        const taskData = JSON.stringify(tasks);
         window.localStorage.setItem('todo', taskData);
     }
 

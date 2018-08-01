@@ -8,96 +8,6 @@
     background: #F4F4F4;
     border-radius: 3px;
 }
-.btn-status {
-    @include button-color(#FAC174);
-    &::after {
-        content: 'cached';
-    }
-}
-.btn-edit {
-    @include button-color(#27A4DE);
-    &::after {
-        content: 'edit';
-    }
-}
-.btn-delete-item {
-    @include button-color(#F1646C);
-    &::after {
-        content: 'delete_forever';
-    }
-}
-.btn-save {
-    @include button-color(#9ED5C0);
-    display: none;
-    &::after {
-        content: 'save';
-    }    
-}
-.btn-cancel {
-    @include button-color(#27A4DE);
-    display: none;
-    &::after {
-        content: 'cancel';
-        font: {
-            size: 1.2rem;
-            weight: bold;
-        }
-    }
-}
-
-.btn-status {
-    opacity: 1;
-}
-.btn-status[data-status = '0'],
-.btn-status[data-status = '2'] {
-    opacity: .3;
-    &:hover {
-        opacity: .8;
-    }
-}
-
-.btn-status-complete[checked="checked"]+.name-field {
-    text-decoration: line-through;
-}
-.complete {
-    .btn-status {
-        display: none;
-    }
-}
-.btn-status-complete {
-    width: 13px;
-    height: 13px;
-    border: 1px solid #E7E7E7;
-    background: $color_white;
-    margin-right: 10px;
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
-    &::-ms-check {
-        display: none;
-    }
-    &[checked="checked"] {
-        &::-ms-check {
-            display: block;
-        }
-        border: 1px solid #9ED5C0;
-        &:after {
-            content: '\e909';
-            display: block;
-            color:#9ED5C0;
-            position: absolute;
-            top: 0;
-            left:0;
-            font: {
-                size: 1.2rem;
-                family: $font_ico;
-                weight: bold;
-            }
-                
-        }
-    }
-}
 .name-field {
     border:0;
     align-items: center;
@@ -108,9 +18,6 @@
     @media screen and (max-width: 767px) {
         max-width: 77px;
     }
-}
-.task-content {
-
 }
 .task-info {
     display: inline-block;
@@ -126,17 +33,11 @@
         padding-left: 10px;
     }
 }
-.edit-name-field {
-    display: none;
+
+.field {
+    width: 100%;
 }
-.edit-mode {
-    .field {
-        width: 100%;
-    }
-    .edit-name-field, .btn-save, .btn-cancel {
-        display: flex;
-    }
-    .name-field, .btn-status, .btn-edit, .btn-delete-item, .btn-status-complete {
-        display: none;
-    }
+
+.edit-name-field {
+    display: flex;
 }
