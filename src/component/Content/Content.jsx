@@ -17,15 +17,27 @@ class Content extends Component {
         };
     }
 
+    switchTaskValueChange = (action, event) => {
+        switch (action) {
+        case 'add':
+            this.addTaskValueChange(event);
+            break;
+        case 'search':
+            this.searchTaskValueChange(event);
+            break;
+        default:
+            console.log('default');
+        }
+    }
+
     switchControlsAction = (action, event) => {
-        console.log(action, event);
         event.preventDefault();
         switch (action) {
         case 'add':
-            this.addTask(event);
+            this.addTask();
             break;
         case 'search':
-            this.searchTask(event);
+            this.searchTask();
             break;
         default:
             console.log('default');
@@ -51,6 +63,14 @@ class Content extends Component {
         }
     }
 
+    addTaskValueChange = (event) => {
+        this.setState({ addValue: event });
+    }
+
+    searchTaskValueChange = (event) => {
+        this.setState({ searchValue: event });
+    }
+
     addTask = () => {
         if (this.state.addValue) {
             const task = {
@@ -60,12 +80,20 @@ class Content extends Component {
             };
             this.state.tasks.unshift(task);
             this.setChanges(this.state.tasks);
+            this.sendToDB(this.state.tasks);
         }
     }
 
-    searchTask = (event) => {
-        event.preventDefault();
-        console.log(event);
+    searchTask = () => {
+        console.log('search', this.state.searchValue);
+        const searchQuery = this.state.searchValue;
+        if (searchQuery) {
+            const currentTaskList = this.state.tasks.filter(e =>
+                e.name === searchQuery,
+            );
+            console.log(currentTaskList);
+            this.setChanges(currentTaskList);
+        }
     }
 
     deleteTask = (id, event) => {
@@ -74,6 +102,7 @@ class Content extends Component {
             e.id !== id,
         );
         this.setChanges(currentTaskList);
+        this.sendToDB(currentTaskList);
     }
 
     saveTask = (id, name, event) => {
@@ -84,6 +113,7 @@ class Content extends Component {
             }
         });
         this.setChanges(this.state.tasks);
+        this.sendToDB(this.state.tasks);
     }
 
     setStatusComplete = (id) => {
@@ -106,27 +136,18 @@ class Content extends Component {
             }
         });
         this.setChanges(this.state.tasks);
+        this.sendToDB(this.state.tasks);
     }
 
     setChanges = (currentTaskList) => {
         this.setState({
-            value: '',
+            addValue: '',
             tasks: currentTaskList,
         });
-        this.sendToDB(currentTaskList);
     }
     sendToDB = (tasks) => {
         const taskData = JSON.stringify(tasks);
         window.localStorage.setItem('todo', taskData);
-    }
-
-    newTaskValueChange = (action, event) => {
-        console.log(action, event);
-        if (action === 'add') {
-            this.setState({ addValue: event });
-        } else {
-            this.setState({ seacrhValue: event });
-        }
     }
 
     render() {
@@ -138,7 +159,7 @@ class Content extends Component {
                     <ControlsTasks
                         action={action}
                         onSubmitTask={this.switchControlsAction}
-                        onTextChange={this.newTaskValueChange}
+                        onTextChange={this.switchTaskValueChange}
                         addValue={addValue}
                         searchValue={searchValue}
                     />
