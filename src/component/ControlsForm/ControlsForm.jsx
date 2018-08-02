@@ -5,8 +5,8 @@ import Input from '../Input/Input';
 import '../../styles/common-style.scss';
 import './ControlsForm.scss';
 
-const ControlsForm = ({ action, value, onTextChange, onSubmitTask }) => {
-    const onValueChange = event => onTextChange(event);
+const ControlsForm = ({ action, placeholder, value, onTextChange, onSubmitTask }) => {
+    const onValueChange = event => onTextChange(action, event);
 
     const onValueSubmit = event => onSubmitTask(action, event);
 
@@ -17,6 +17,7 @@ const ControlsForm = ({ action, value, onTextChange, onSubmitTask }) => {
                     <Input
                         optionalClass="control-item"
                         action={action}
+                        placeholder={placeholder}
                         onTextChange={onValueChange}
                         value={value}
                     />
@@ -29,6 +30,7 @@ const ControlsForm = ({ action, value, onTextChange, onSubmitTask }) => {
 
 ControlsForm.propTypes = {
     action: PropTypes.string,
+    placeholder: PropTypes.string,
     value: PropTypes.string,
     onTextChange: PropTypes.func,
     onSubmitTask: PropTypes.func,
@@ -36,6 +38,7 @@ ControlsForm.propTypes = {
 
 ControlsForm.defaultProps = {
     action: '',
+    placeholder: '',
     value: '',
     onTextChange: () => { },
     onSubmitTask: () => { },

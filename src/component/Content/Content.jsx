@@ -11,11 +11,11 @@ class Content extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
+            addValue: '',
+            searchValue: '',
             tasks: [...store],
         };
     }
-    newTaskValueChange = (event) => { this.setState({ value: event }); }
 
     switchControlsAction = (action, event) => {
         console.log(action, event);
@@ -52,18 +52,14 @@ class Content extends Component {
     }
 
     addTask = () => {
-        if (this.state.value) {
+        if (this.state.addValue) {
             const task = {
-                id: Date.now() + this.state.value,
-                name: this.state.value,
+                id: Date.now() + this.state.addValue,
+                name: this.state.addValue,
                 status: STATUS_DEFAULT,
             };
             this.state.tasks.unshift(task);
-            this.setState({
-                value: '',
-                tasks: this.state.tasks,
-            });
-            this.sendToDB(this.state.tasks);
+            this.setChanges(this.state.tasks);
         }
     }
 
@@ -77,10 +73,7 @@ class Content extends Component {
         const currentTaskList = this.state.tasks.filter(e =>
             e.id !== id,
         );
-        this.setState({
-            tasks: currentTaskList,
-        });
-        this.sendToDB(currentTaskList);
+        this.setChanges(currentTaskList);
     }
 
     saveTask = (id, name, event) => {
@@ -90,56 +83,55 @@ class Content extends Component {
                 e.name = name;
             }
         });
-        this.setState({
-            value: '',
-            tasks: this.state.tasks,
-        });
-        this.sendToDB(this.state.tasks);
+        this.setChanges(this.state.tasks);
     }
 
     setStatusComplete = (id) => {
-        this.state.tasks.forEach((e) => {
-            if (e.id === id) {
-                if (e.status === STATUS_COMPLETE) {
-                    e.status = STATUS_DEFAULT;
-                } else {
-                    e.status = STATUS_COMPLETE;
-                }
-            }
-        });
-        this.setState({
-            value: '',
-            tasks: this.state.tasks,
-        });
-        this.sendToDB(this.state.tasks);
+        this.setStatus(id, STATUS_COMPLETE);
     }
 
     setStatusProcess = (id, event) => {
         event.preventDefault();
+        this.setStatus(id, STATUS_INPROCESS);
+    }
+
+    setStatus = (id, status) => {
         this.state.tasks.forEach((e) => {
             if (e.id === id) {
-                if (e.status === STATUS_INPROCESS) {
+                if (e.status === status) {
                     e.status = STATUS_DEFAULT;
                 } else {
-                    e.status = STATUS_INPROCESS;
+                    e.status = status;
                 }
             }
         });
-        this.setState({
-            value: '',
-            tasks: this.state.tasks,
-        });
-        this.sendToDB(this.state.tasks);
+        this.setChanges(this.state.tasks);
     }
 
+    setChanges = (currentTaskList) => {
+        this.setState({
+            value: '',
+            tasks: currentTaskList,
+        });
+        this.sendToDB(currentTaskList);
+    }
     sendToDB = (tasks) => {
         const taskData = JSON.stringify(tasks);
         window.localStorage.setItem('todo', taskData);
     }
 
+    newTaskValueChange = (action, event) => {
+        console.log(action, event);
+        if (action === 'add') {
+            this.setState({ addValue: event });
+        } else {
+            this.setState({ seacrhValue: event });
+        }
+    }
+
     render() {
         const { action } = this.props;
-        const { value, tasks } = this.state;
+        const { addValue, searchValue, tasks } = this.state;
         return (
             <main>
                 <div className="container">
@@ -147,7 +139,8 @@ class Content extends Component {
                         action={action}
                         onSubmitTask={this.switchControlsAction}
                         onTextChange={this.newTaskValueChange}
-                        value={value}
+                        addValue={addValue}
+                        searchValue={searchValue}
                     />
                     <TaskContainer
                         todos={tasks}

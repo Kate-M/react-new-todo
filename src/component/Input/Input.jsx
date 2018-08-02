@@ -1,36 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import '../../styles/common-style.scss';
 import './Input.scss';
 
-class Input extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            placeholder: 'Add a Task',
-        };
-    }
+const Input = ({ action, placeholder, optionalClass, value, onTextChange }) => {
+    const handleTextChange = (event) => {
+        onTextChange(event.target.value);
+    };
 
-    handleTextChange = (event) => {
-        this.props.onTextChange(event.target.value);
-    }
-
-    render() {
-        const { action, optionalClass, value } = this.props;
-        const { placeholder } = this.state;
-        return (
-            <input
-                className={`${optionalClass} ${action}-field`}
-                placeholder={placeholder}
-                value={value}
-                onChange={this.handleTextChange}
-            />
-        );
-    }
-}
+    return (
+        <input
+            className={`${optionalClass} ${action}-field`}
+            placeholder={placeholder}
+            value={value}
+            onChange={handleTextChange}
+        />
+    );
+};
 
 Input.propTypes = {
     action: PropTypes.string,
+    placeholder: PropTypes.string,
     optionalClass: PropTypes.string,
     value: PropTypes.string,
     onTextChange: PropTypes.func,
@@ -38,9 +28,10 @@ Input.propTypes = {
 
 Input.defaultProps = {
     action: '',
+    placeholder: '',
     optionalClass: '',
     value: '',
-    onTextChange: () => {},
+    onTextChange: () => { },
 };
 
 export default Input;

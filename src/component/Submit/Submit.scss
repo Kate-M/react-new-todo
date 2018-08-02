@@ -3,3 +3,8 @@
         content: 'add';
     }
 }
+.search-btn {
+    &::after {
+        content: 'search';
+    }
+}

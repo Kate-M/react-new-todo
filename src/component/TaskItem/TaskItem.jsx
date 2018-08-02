@@ -13,10 +13,12 @@ class TaskItem extends Component {
     }
 
     onActionSubmit = (action, event) => {
-        this.props.onInitAction(
+        const { todo, onInitAction } = this.props;
+        const { name } = this.state;
+        onInitAction(
             action,
-            this.props.todo.id,
-            this.state.name,
+            todo.id,
+            name,
             event,
         );
     };
