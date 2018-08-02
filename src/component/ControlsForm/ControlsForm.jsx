@@ -8,7 +8,7 @@ import './ControlsForm.scss';
 const ControlsForm = ({ action, value, onTextChange, onSubmitTask }) => {
     const onValueChange = event => onTextChange(event);
 
-    const onValueSubmit = event => onSubmitTask(event);
+    const onValueSubmit = event => onSubmitTask(action, event);
 
     return (
         <div className={`control-item ${action}-task`}>

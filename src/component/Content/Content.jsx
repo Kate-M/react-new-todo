@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ControlsTasks from '../ControlsTasks/ControlsTasks';
 import TaskContainer from '../TaskContainer/TaskContainer';
 import store from '../store';
-import { STATUS_DEFAULT, STATUS_COMPLETE } from '../status';
+import { STATUS_DEFAULT, STATUS_INPROCESS, STATUS_COMPLETE } from '../status';
 import '../../styles/common-style.scss';
 import './Content.scss';
 
@@ -17,8 +17,41 @@ class Content extends Component {
     }
     newTaskValueChange = (event) => { this.setState({ value: event }); }
 
-    addTask = (event) => {
+    switchControlsAction = (action, event) => {
+        console.log(action, event);
         event.preventDefault();
+        switch (action) {
+        case 'add':
+            this.addTask(event);
+            break;
+        case 'search':
+            this.searchTask(event);
+            break;
+        default:
+            console.log('default');
+        }
+    }
+
+    switchTasksAction = (action, id, name, event) => {
+        switch (action) {
+        case 'delete':
+            this.deleteTask(id, event);
+            break;
+        case 'save':
+            this.saveTask(id, name, event);
+            break;
+        case 'status-process':
+            this.setStatusProcess(id, event);
+            break;
+        case 'status-complete':
+            this.setStatusComplete(id);
+            break;
+        default:
+            console.log('default');
+        }
+    }
+
+    addTask = () => {
         if (this.state.value) {
             const task = {
                 id: Date.now() + this.state.value,
@@ -34,23 +67,9 @@ class Content extends Component {
         }
     }
 
-    switchAction = (action, id, name, event) => {
-        switch (action) {
-        case 'delete':
-            this.deleteTask(id, event);
-            break;
-        case 'save':
-            this.saveTask(id, name, event);
-            break;
-        case 'in-process':
-            console.log('in-process');
-            break;
-        case 'complete':
-            this.setComplete(id);
-            break;
-        default:
-            console.log('default');
-        }
+    searchTask = (event) => {
+        event.preventDefault();
+        console.log(event);
     }
 
     deleteTask = (id, event) => {
@@ -78,13 +97,31 @@ class Content extends Component {
         this.sendToDB(this.state.tasks);
     }
 
-    setComplete = (id) => {
+    setStatusComplete = (id) => {
         this.state.tasks.forEach((e) => {
             if (e.id === id) {
                 if (e.status === STATUS_COMPLETE) {
                     e.status = STATUS_DEFAULT;
                 } else {
                     e.status = STATUS_COMPLETE;
+                }
+            }
+        });
+        this.setState({
+            value: '',
+            tasks: this.state.tasks,
+        });
+        this.sendToDB(this.state.tasks);
+    }
+
+    setStatusProcess = (id, event) => {
+        event.preventDefault();
+        this.state.tasks.forEach((e) => {
+            if (e.id === id) {
+                if (e.status === STATUS_INPROCESS) {
+                    e.status = STATUS_DEFAULT;
+                } else {
+                    e.status = STATUS_INPROCESS;
                 }
             }
         });
@@ -108,13 +145,13 @@ class Content extends Component {
                 <div className="container">
                     <ControlsTasks
                         action={action}
-                        onSubmitTask={this.addTask}
+                        onSubmitTask={this.switchControlsAction}
                         onTextChange={this.newTaskValueChange}
                         value={value}
                     />
                     <TaskContainer
                         todos={tasks}
-                        switchAction={this.switchAction}
+                        switchAction={this.switchTasksAction}
                     />
                 </div>
             </main>

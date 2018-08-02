@@ -12,7 +12,8 @@ class Checkbox extends Component {
     }
 
     handleCheckboxChange = (event) => {
-        this.props.onActionSubmit('complete', event);
+        const { action } = this.props;
+        this.props.onActionSubmit(action, event);
     }
 
     render() {
@@ -29,13 +30,15 @@ class Checkbox extends Component {
 }
 
 Checkbox.propTypes = {
-    onActionSubmit: PropTypes.func,
+    action: PropTypes.string,
     status: PropTypes.string,
+    onActionSubmit: PropTypes.func,
 };
 
 Checkbox.defaultProps = {
-    onActionSubmit: () => {},
+    action: '',
     status: '',
+    onActionSubmit: () => {},
 };
 
 export default Checkbox;

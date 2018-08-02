@@ -76,16 +76,17 @@ class TaskItem extends Component {
     }
 
     renderDefault() {
-        const { name, status } = this.state;
+        const { status } = this.props;
+        const { name } = this.state;
         return (
             <div className="tasks-wrap">
                 <form className="task-item">
                     <div className="field-wrap">
-                        <Checkbox onActionSubmit={this.setComplete} status={status} />
+                        <Checkbox action="status-complete" onActionSubmit={this.setComplete} status={status} />
                         <p className="field name-field">{name}</p>
                     </div>
                     <div className="btn-group">
-                        <button className="btn btn-sm btn-status-item" data-state="status-task" data-status="0" />
+                        <Button action="status-process" onActionSubmit={this.onActionSubmit} status={status} />
                         <Button action="edit" onActionSubmit={this.switchAction} />
                         <Button action="delete" onActionSubmit={this.switchAction} />
                     </div>
@@ -124,11 +125,13 @@ class TaskItem extends Component {
 
 TaskItem.propTypes = {
     todo: PropTypes.object,
+    status: PropTypes.string,
     onInitAction: PropTypes.func,
 };
 
 TaskItem.defaultProps = {
     todo: {},
+    status: '',
     onInitAction: () => { },
 };
 export default TaskItem;

@@ -1,7 +1,7 @@
 @import '../../styles/base/variables.scss';
 @import '../../styles/base/mixins.scss';
 
-.btn-status-item {
+.btn-status-process-item {
     @include button-color(#FAC174);
     &::after {
         content: 'cached';
@@ -35,20 +35,15 @@
     }
 }
 
-.btn-status-item {
+.btn-status-process-item{
     opacity: 1;
 }
-.btn-status-item[data-status = '0'],
-.btn-status-item[data-status = '2'] {
+.btn-status-process-item[data-status = '0'],
+.btn-status-process-item[data-status = '2'] {
     opacity: .3;
     &:hover {
         opacity: .8;
     }
 }
 
-.complete {
-    .btn-status-item {
-        display: none;
-    }
-}
 

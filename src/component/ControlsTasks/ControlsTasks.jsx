@@ -7,7 +7,7 @@ import './ControlsTasks.scss';
 const ControlTasks = ({ value, onTextChange, onSubmitTask }) => {
     const onValueChange = event => onTextChange(event);
 
-    const onValueSubmit = event => onSubmitTask(event);
+    const onValueSubmit = (action, event) => onSubmitTask(action, event);
 
     return (
         <section className="controls-task-main">
@@ -17,6 +17,7 @@ const ControlTasks = ({ value, onTextChange, onSubmitTask }) => {
                 onTextChange={onValueChange}
                 value={value}
             />
+
         </section>
     );
 };
