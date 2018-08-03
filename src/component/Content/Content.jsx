@@ -26,7 +26,7 @@ class Content extends Component {
             this.addTaskValueChange(event);
             break;
         case 'search':
-            this.searchTaskValueChange(event);
+            this.searchTask(event);
             break;
         default:
             console.log('default');
@@ -39,8 +39,8 @@ class Content extends Component {
         case 'add':
             this.addTask();
             break;
-        case 'search':
-            this.searchTask();
+        case 'reset':
+            this.resetSearchTask();
             break;
         default:
             console.log('default');
@@ -70,10 +70,6 @@ class Content extends Component {
         this.setState({ addValue: event });
     }
 
-    searchTaskValueChange = (event) => {
-        this.setState({ searchValue: event });
-    }
-
     addTask = () => {
         if (this.state.addValue) {
             const task = {
@@ -82,27 +78,33 @@ class Content extends Component {
                 status: STATUS_DEFAULT,
             };
             this.state.tasks.unshift(task);
+            this.setState({
+                isSearched: false,
+                searchValue: '',
+            });
             this.setChanges(this.state.tasks);
             this.sendToDB(this.state.tasks);
         }
     }
 
-    searchTask = () => {
-        const searchQuery = this.state.searchValue;
-        if (searchQuery) {
-            const currentTaskList = this.state.tasks.filter(e =>
-                e.name === searchQuery,
-            );
-            if (currentTaskList.length) {
-                this.setState({
-                    isSearched: true,
-                    searchedTasks: currentTaskList,
-                });
-            } else {
-                this.setState({
-                    isFilterError: true,
-                });
-            }
+    searchTask = (event) => {
+        const tasksList = this.state.tasks;
+        const currentTaskList = tasksList.filter(e =>
+            e.name.toLowerCase().startsWith(event.toLowerCase()),
+        );
+        this.setState({
+            isSearched: true,
+            isFilterError: false,
+            searchValue: event,
+        });
+        if (currentTaskList.length) {
+            this.setState({
+                searchedTasks: currentTaskList,
+            });
+        } else {
+            this.setState({
+                isFilterError: true,
+            });
         }
     }
 
@@ -152,7 +154,6 @@ class Content extends Component {
     setChanges = (currentTaskList) => {
         this.setState({
             addValue: '',
-            isSearched: false,
             tasks: currentTaskList,
             isFilterError: false,
         });
@@ -165,7 +166,12 @@ class Content extends Component {
 
     render() {
         const { action } = this.props;
-        const { addValue, searchValue, isSearched, searchedTasks, isFilterError, tasks } = this.state;
+        const { addValue,
+                searchValue,
+                isSearched,
+                searchedTasks,
+                isFilterError,
+                tasks } = this.state;
         return (
             <main>
                 <div className="container">
@@ -175,6 +181,7 @@ class Content extends Component {
                         onTextChange={this.switchTaskValueChange}
                         addValue={addValue}
                         searchValue={searchValue}
+                        isSearched={isSearched}
                     />
                     <TaskContainer
                         todos={isSearched ? searchedTasks : tasks}

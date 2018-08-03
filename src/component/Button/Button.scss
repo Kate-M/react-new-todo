@@ -1,31 +1,31 @@
 @import '../../styles/base/variables.scss';
 @import '../../styles/base/mixins.scss';
 
-.btn-status-process-item {
+.btn-status-process {
     @include button-color(#FAC174);
     &::after {
         content: 'cached';
     }
 }
-.btn-edit-item {
+.btn-edit {
     @include button-color(#27A4DE);
     &::after {
         content: 'edit';
     }
 }
-.btn-delete-item {
+.btn-delete {
     @include button-color(#F1646C);
     &::after {
         content: 'delete_forever';
     }
 }
-.btn-save-item {
+.btn-save {
     @include button-color(#9ED5C0);
     &::after {
         content: 'save';
     }    
 }
-.btn-cancel-item {
+.btn-cancel {
     @include button-color(#27A4DE);
     &::after {
         content: 'close';
@@ -35,11 +35,11 @@
     }
 }
 
-.btn-status-process-item{
+.btn-status-process{
     opacity: 1;
 }
-.btn-status-process-item[data-status = '0'],
-.btn-status-process-item[data-status = '2'] {
+.btn-status-process[data-status = '0'],
+.btn-status-process[data-status = '2'] {
     opacity: .3;
     &:hover {
         opacity: .8;

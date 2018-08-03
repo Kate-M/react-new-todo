@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ControlsForm from '../ControlsForm/ControlsForm';
+import Submit from '../Submit/Submit';
 import '../../styles/common-style.scss';
 import './ControlsTasks.scss';
 
-const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask }) => {
+const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask, isSearched }) => {
     const onValueChange = (action, event) => onTextChange(action, event);
 
     const onValueSubmit = (action, event) => onSubmitTask(action, event);
 
     return (
-        <section className="controls-task-main">
+        <section className={`controls-task-main search-${isSearched}`}>
             <ControlsForm
                 action="add"
                 placeholder="Add a task"
@@ -25,19 +26,21 @@ const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask }) => 
                 onTextChange={onValueChange}
                 value={searchValue}
             />
-
+            <Submit action="reset" btnSize="lg" name="Reset search" />
         </section>
     );
 };
 
 ControlTasks.propTypes = {
-    value: PropTypes.string,
+    addValue: PropTypes.string,
+    searchValue: PropTypes.string,
     onTextChange: PropTypes.func,
     onSubmitTask: PropTypes.func,
 };
 
 ControlTasks.defaultProps = {
-    value: '',
+    addValue: '',
+    searchValue: '',
     onTextChange: () => { },
     onSubmitTask: () => { },
 };

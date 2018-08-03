@@ -1,10 +1,18 @@
-.add-btn {
+.btn-add {
     &::after {
         content: 'add';
     }
 }
-.search-btn {
+.btn-search {
     &::after {
         content: 'search';
+    }
+}
+.btn-reset{
+    display: none;
+}
+.search-true {
+    .btn-reset {
+        display: block;
     }
 }

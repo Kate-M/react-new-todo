@@ -22,7 +22,7 @@ const ControlsForm = ({ action, placeholder, value, onTextChange, onSubmitTask }
                         value={value}
                     />
                 </fieldset>
-                <Submit action={action} />
+                <Submit action={action} btnSize="md" />
             </form>
         </div>
     );

@@ -8,7 +8,7 @@ const Button = ({ action, status, onActionSubmit }) => {
 
     return (
         <button
-            className={`btn btn-sm btn-${action}-item`}
+            className={`btn btn-sm btn-${action}`}
             onClick={onActionCreate}
             {...(status ? { 'data-status': `${status}` } : null)}
         />
