@@ -11,22 +11,23 @@ const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask, isSea
     const onValueSubmit = (action, event) => onSubmitTask(action, event);
 
     return (
-        <section className={`controls-task-main search-${isSearched}`}>
+        <section className="controls-task-main">
             <ControlsForm
                 action="add"
                 placeholder="Add a task"
                 onSubmitTask={onValueSubmit}
                 onTextChange={onValueChange}
                 value={addValue}
+                submitAction="add"
             />
             <ControlsForm
                 action="search"
-                placeholder="Search"
+                placeholder="Search a task"
                 onSubmitTask={onValueSubmit}
                 onTextChange={onValueChange}
                 value={searchValue}
+                submitAction="reset"
             />
-            <Submit action="reset" btnSize="lg" name="Reset search" />
         </section>
     );
 };

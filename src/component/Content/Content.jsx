@@ -108,6 +108,14 @@ class Content extends Component {
         }
     }
 
+    resetSearchTask = () => {
+        this.setState({
+            searchValue: '',
+            isSearched: false,
+            isFilterError: false,
+        });
+    }
+
     deleteTask = (id, event) => {
         event.preventDefault();
         const currentTaskList = this.state.tasks.filter(e =>
@@ -154,8 +162,8 @@ class Content extends Component {
     setChanges = (currentTaskList) => {
         this.setState({
             addValue: '',
-            tasks: currentTaskList,
             isFilterError: false,
+            tasks: currentTaskList,
         });
     }
 

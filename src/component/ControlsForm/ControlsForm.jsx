@@ -5,10 +5,10 @@ import Input from '../Input/Input';
 import '../../styles/common-style.scss';
 import './ControlsForm.scss';
 
-const ControlsForm = ({ action, placeholder, value, onTextChange, onSubmitTask }) => {
+const ControlsForm = ({ action, placeholder, value, onTextChange, onSubmitTask, submitAction }) => {
     const onValueChange = event => onTextChange(action, event);
 
-    const onValueSubmit = event => onSubmitTask(action, event);
+    const onValueSubmit = event => onSubmitTask(submitAction, event);
 
     return (
         <div className={`control-item ${action}-task`}>
@@ -22,7 +22,7 @@ const ControlsForm = ({ action, placeholder, value, onTextChange, onSubmitTask }
                         value={value}
                     />
                 </fieldset>
-                <Submit action={action} btnSize="md" />
+                <Submit action={submitAction} btnSize="md" />
             </form>
         </div>
     );
@@ -30,6 +30,7 @@ const ControlsForm = ({ action, placeholder, value, onTextChange, onSubmitTask }
 
 ControlsForm.propTypes = {
     action: PropTypes.string,
+    submitAction: PropTypes.string,
     placeholder: PropTypes.string,
     value: PropTypes.string,
     onTextChange: PropTypes.func,
@@ -38,6 +39,7 @@ ControlsForm.propTypes = {
 
 ControlsForm.defaultProps = {
     action: '',
+    submitAction: '',
     placeholder: '',
     value: '',
     onTextChange: () => { },
