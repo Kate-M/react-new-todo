@@ -116,8 +116,8 @@ img {
     @include center-all;
     position: relative;
     &::after {
-        @include center-all;
         content: '';
+        @include center-all;
         font: {
             size: 2.2rem;
             family: "Material Icons";
@@ -162,4 +162,3 @@ img {
 footer {
     flex: 0 0 auto;
 }
-

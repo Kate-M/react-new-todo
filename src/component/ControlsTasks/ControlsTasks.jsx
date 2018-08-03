@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ControlsForm from '../ControlsForm/ControlsForm';
-import Submit from '../Submit/Submit';
+import FilterContainer from '../FilterContainer/FilterContainer';
 import '../../styles/common-style.scss';
 import './ControlsTasks.scss';
 
-const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask, isSearched }) => {
+const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask }) => {
     const onValueChange = (action, event) => onTextChange(action, event);
 
     const onValueSubmit = (action, event) => onSubmitTask(action, event);
@@ -27,6 +27,9 @@ const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask, isSea
                 onTextChange={onValueChange}
                 value={searchValue}
                 submitAction="reset"
+            />
+            <FilterContainer
+                action="filter"
             />
         </section>
     );

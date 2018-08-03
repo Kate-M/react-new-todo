@@ -1,0 +1,60 @@
+@import '../../styles/base/variables.scss';
+@import '../../styles/base/mixins.scss';
+
+.filter-task.open-true {
+    .filter-select{
+        display: block;
+        overflow: hidden;
+    }
+}
+.filter-task {
+    user-select: none;
+    cursor: pointer;
+    min-width: 215px;
+    text-transform: uppercase;
+    position: relative;
+    border-radius: 3px;
+    .filter-btn {
+        @include center-x;
+        position: relative;
+        padding: 0 5px;
+        height: 100%;
+        border-radius: 3px;
+        background: #e7e7e7;
+        &::after {
+            content: 'keyboard_arrow_down';
+            text-transform: lowercase;
+            @include center-all;
+            position: absolute;
+            top:0;
+            right: 0;
+            height: 100%;
+            padding-right: 10px;
+            font: {
+                size: 1.4rem;
+                family: "Material Icons";
+                feature-settings: 'liga';
+            }
+        }
+    }
+    .filter-select {
+        background: $color_white;
+        display: none;
+        position: absolute;
+        top:0;
+        left: 0;
+        width: 100%;
+        border-top:0;
+        margin-top:36px;
+        z-index: 2;
+        background: #ECEBEB;
+    }
+    .filter-option {
+        @include center-x;
+        padding:5px 10px;
+        height: 35px;
+        &:hover {
+            background:#E3DFE4;
+        }
+    }
+}
