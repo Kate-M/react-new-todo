@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FilterItem from '../FilterItem/FilterItem';
 import { statusList as STATUS_LIST } from '../status';
 import '../../styles/common-style.scss';
 import './FilterContainer.scss';
@@ -10,6 +11,9 @@ class FilterContainer extends Component {
         this.state = {
             isFilterOpen: false,
         };
+    }
+    setFilter = (action, event) => {
+        this.props.onSubmitFilter(action, event);
     }
     openFilter = () => {
         this.setState({
@@ -27,9 +31,7 @@ class FilterContainer extends Component {
                 </a>
                 <ul className="filter-select">
                     {STATUS_LIST.map(e => (
-                        <li className="filter-item" key={e}>
-                            <a href="" className="filter-option filter-compl">{e}</a>
-                        </li>
+                        <FilterItem key={e} filter={e} action={`filter-${e.toLowerCase()}`} onFilterInit={this.setFilter} />
                     )) }
                 </ul>
             </div>
@@ -39,10 +41,12 @@ class FilterContainer extends Component {
 
 FilterContainer.propTypes = {
     action: PropTypes.string,
+    onSubmitFilter: PropTypes.func,
 };
 
 FilterContainer.defaultProps = {
     action: '',
+    onSubmitFilter: () => { },
 };
 
 export default FilterContainer;

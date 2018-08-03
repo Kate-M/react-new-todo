@@ -46,8 +46,27 @@ class Content extends Component {
             console.log('default');
         }
     }
-
+    switchFiltersAction = (action, event) => {
+        event.preventDefault();
+        switch (action) {
+        case 'filter-complete':
+            console.log(action);
+            break;
+        case 'filter-default':
+            console.log(action);
+            break;
+        case 'filter-in_process':
+            console.log(action);
+            break;
+        case 'filter-all':
+            console.log(action);
+            break;
+        default:
+            console.log('default');
+        }
+    }
     switchTasksAction = (action, id, name, event) => {
+        console.log(action);
         switch (action) {
         case 'delete':
             this.deleteTask(id, event);
@@ -60,6 +79,9 @@ class Content extends Component {
             break;
         case 'status-complete':
             this.setStatusComplete(id);
+            break;
+        case 'filter-complete':
+            console.log('filter-complete');
             break;
         default:
             console.log('default');
@@ -186,6 +208,7 @@ class Content extends Component {
                     <ControlsTasks
                         action={action}
                         onSubmitTask={this.switchControlsAction}
+                        onFilter={this.switchFiltersAction}
                         onTextChange={this.switchTaskValueChange}
                         addValue={addValue}
                         searchValue={searchValue}

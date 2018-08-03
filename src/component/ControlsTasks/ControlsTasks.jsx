@@ -5,10 +5,12 @@ import FilterContainer from '../FilterContainer/FilterContainer';
 import '../../styles/common-style.scss';
 import './ControlsTasks.scss';
 
-const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask }) => {
+const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask, onFilter }) => {
     const onValueChange = (action, event) => onTextChange(action, event);
 
     const onValueSubmit = (action, event) => onSubmitTask(action, event);
+
+    const onSubmitFilter = (action, event) => onFilter(action, event);
 
     return (
         <section className="controls-task-main">
@@ -30,6 +32,7 @@ const ControlTasks = ({ addValue, searchValue, onTextChange, onSubmitTask }) => 
             />
             <FilterContainer
                 action="filter"
+                onSubmitFilter={onSubmitFilter}
             />
         </section>
     );
@@ -40,6 +43,7 @@ ControlTasks.propTypes = {
     searchValue: PropTypes.string,
     onTextChange: PropTypes.func,
     onSubmitTask: PropTypes.func,
+    onFilter: PropTypes.func,
 };
 
 ControlTasks.defaultProps = {
@@ -47,6 +51,7 @@ ControlTasks.defaultProps = {
     searchValue: '',
     onTextChange: () => { },
     onSubmitTask: () => { },
+    onFilter: () => { },
 };
 
 export default ControlTasks;
