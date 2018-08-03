@@ -13,7 +13,9 @@ class Content extends Component {
         this.state = {
             addValue: '',
             searchValue: '',
+            isSearched: false,
             tasks: [...store],
+            searchedTasks: [],
         };
     }
 
@@ -85,14 +87,15 @@ class Content extends Component {
     }
 
     searchTask = () => {
-        console.log('search', this.state.searchValue);
         const searchQuery = this.state.searchValue;
         if (searchQuery) {
             const currentTaskList = this.state.tasks.filter(e =>
                 e.name === searchQuery,
             );
-            console.log(currentTaskList);
-            this.setChanges(currentTaskList);
+            this.setState({
+                isSearched: true,
+                searchedTasks: currentTaskList,
+            });
         }
     }
 
@@ -142,6 +145,7 @@ class Content extends Component {
     setChanges = (currentTaskList) => {
         this.setState({
             addValue: '',
+            isSearched: false,
             tasks: currentTaskList,
         });
     }
@@ -152,7 +156,7 @@ class Content extends Component {
 
     render() {
         const { action } = this.props;
-        const { addValue, searchValue, tasks } = this.state;
+        const { addValue, searchValue, isSearched, searchedTasks, tasks } = this.state;
         return (
             <main>
                 <div className="container">
@@ -164,7 +168,7 @@ class Content extends Component {
                         searchValue={searchValue}
                     />
                     <TaskContainer
-                        todos={tasks}
+                        todos={isSearched ? searchedTasks : tasks}
                         switchAction={this.switchTasksAction}
                     />
                 </div>
