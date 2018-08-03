@@ -16,6 +16,7 @@ class Content extends Component {
             isSearched: false,
             tasks: [...store],
             searchedTasks: [],
+            isFilterError: false,
         };
     }
 
@@ -92,10 +93,16 @@ class Content extends Component {
             const currentTaskList = this.state.tasks.filter(e =>
                 e.name === searchQuery,
             );
-            this.setState({
-                isSearched: true,
-                searchedTasks: currentTaskList,
-            });
+            if (currentTaskList.length) {
+                this.setState({
+                    isSearched: true,
+                    searchedTasks: currentTaskList,
+                });
+            } else {
+                this.setState({
+                    isFilterError: true,
+                });
+            }
         }
     }
 
@@ -147,8 +154,10 @@ class Content extends Component {
             addValue: '',
             isSearched: false,
             tasks: currentTaskList,
+            isFilterError: false,
         });
     }
+
     sendToDB = (tasks) => {
         const taskData = JSON.stringify(tasks);
         window.localStorage.setItem('todo', taskData);
@@ -156,7 +165,7 @@ class Content extends Component {
 
     render() {
         const { action } = this.props;
-        const { addValue, searchValue, isSearched, searchedTasks, tasks } = this.state;
+        const { addValue, searchValue, isSearched, searchedTasks, isFilterError, tasks } = this.state;
         return (
             <main>
                 <div className="container">
@@ -169,6 +178,7 @@ class Content extends Component {
                     />
                     <TaskContainer
                         todos={isSearched ? searchedTasks : tasks}
+                        error={isFilterError}
                         switchAction={this.switchTasksAction}
                     />
                 </div>

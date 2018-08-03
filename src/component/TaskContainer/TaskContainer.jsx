@@ -4,10 +4,10 @@ import TaskItem from '../TaskItem/TaskItem';
 import '../../styles/common-style.scss';
 import './TaskContainer.scss';
 
-const TaskContainer = ({ todos, switchAction }) => {
+const TaskContainer = ({ todos, switchAction, error }) => {
     const onSetAction = (action, id, name, event) => { switchAction(action, id, name, event); };
 
-    return (
+    const renderDefault = () => (
         <section className="tasks-container">
             { todos.map(e =>
             (<TaskItem
@@ -18,6 +18,17 @@ const TaskContainer = ({ todos, switchAction }) => {
             />)) }
         </section>
     );
+
+    const renderError = () => (
+        <div className="tasks-container">
+            <p className="error-filter">Nothing</p>
+        </div>
+    );
+
+    if (error) {
+        return renderError();
+    }
+    return renderDefault();
 };
 
 TaskContainer.propTypes = {
