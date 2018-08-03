@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ControlsTasks from '../ControlsTasks/ControlsTasks';
 import TaskContainer from '../TaskContainer/TaskContainer';
 import store from '../store';
-import { STATUS_DEFAULT, STATUS_INPROCESS, STATUS_COMPLETE } from '../status';
+import { statusOfTask as STATUS } from '../status';
 import '../../styles/common-style.scss';
 import './Content.scss';
 
@@ -75,7 +75,7 @@ class Content extends Component {
             const task = {
                 id: Date.now() + this.state.addValue,
                 name: this.state.addValue,
-                status: STATUS_DEFAULT,
+                status: STATUS.DEFAULT,
             };
             this.state.tasks.unshift(task);
             this.setState({
@@ -137,19 +137,19 @@ class Content extends Component {
     }
 
     setStatusComplete = (id) => {
-        this.setStatus(id, STATUS_COMPLETE);
+        this.setStatus(id, STATUS.COMPLETE);
     }
 
     setStatusProcess = (id, event) => {
         event.preventDefault();
-        this.setStatus(id, STATUS_INPROCESS);
+        this.setStatus(id, STATUS.IN_PROCESS);
     }
 
     setStatus = (id, status) => {
         this.state.tasks.forEach((e) => {
             if (e.id === id) {
                 if (e.status === status) {
-                    e.status = STATUS_DEFAULT;
+                    e.status = STATUS.DEFAULT;
                 } else {
                     e.status = status;
                 }

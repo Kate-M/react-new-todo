@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import status from '../statusOfTask';
+import { statusList as STATUS_LIST } from '../status';
 import '../../styles/common-style.scss';
 import './FilterContainer.scss';
 
@@ -26,20 +26,11 @@ class FilterContainer extends Component {
                     <span className="filter-active">All</span>
                 </a>
                 <ul className="filter-select">
-                    {/* {status.map(e => (
-                        <li className="filter-item">
+                    {STATUS_LIST.map(e => (
+                        <li className="filter-item" key={e}>
                             <a href="" className="filter-option filter-compl">{e}</a>
                         </li>
-                    )) }; */}
-                    <li className="filter-item">
-                        <a href="" className="filter-option filter-all">All</a>
-                    </li>
-                    <li className="filter-item">
-                        <a href="" className="filter-option filter-in">In progress</a>
-                    </li>
-                    <li className="filter-item">
-                        <a href="" className="filter-option filter-compl">Complete</a>
-                    </li>
+                    )) }
                 </ul>
             </div>
         );
