@@ -9,7 +9,7 @@ const FilterItem = ({ filter, action, onFilterInit }) => {
 
     return (
         <li className="filter-item">
-            <a href="" className="filter-option filter-compl" onClick={handleFilter}>{filter}</a>
+            <a href="" className="filter-option filter-compl" onClick={handleFilter}>{filter.replace('_', ' ')}</a>
         </li>
     );
 };
