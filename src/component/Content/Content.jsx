@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ControlsTasks from '../ControlsTasks/ControlsTasks';
 import TaskContainer from '../TaskContainer/TaskContainer';
 import store from '../store';
-import { statusOfTask as STATUS } from '../status';
+import { statusOfTask as STATUS, statusList } from '../status';
 import '../../styles/common-style.scss';
 import './Content.scss';
 
@@ -14,6 +14,7 @@ class Content extends Component {
             addValue: '',
             searchValue: '',
             isSearched: false,
+            isFiltered: false,
             tasks: [...store],
             searchedTasks: [],
             isFilterError: false,
@@ -22,52 +23,55 @@ class Content extends Component {
 
     switchTaskValueChange = (action, event) => {
         switch (action) {
-            case 'add':
-                this.addTaskValueChange(event);
-                break;
-            case 'search':
-                this.searchTask(event);
-                break;
-            default:
-                console.log('default');
+        case 'add':
+            this.addTaskValueChange(event);
+            break;
+        case 'search':
+            this.searchTask(event);
+            break;
+        default:
+            console.log('default');
         }
     }
 
     switchControlsAction = (action, event) => {
         event.preventDefault();
         switch (action) {
-            case 'add':
-                this.addTask();
-                break;
-            case 'reset':
-                this.resetSearchTask();
-                break;
-            default:
-                console.log('default');
+        case 'add':
+            this.addTask();
+            break;
+        case 'reset':
+            this.resetSearchTask();
+            break;
+        default:
+            console.log('default');
         }
     }
     switchFiltersAction = (action, event) => {
         event.preventDefault();
         switch (action) {
-            case 'filter-complete':
-                this.setFilter(STATUS.COMPLETE);
-                break;
-            case 'filter-default':
-                this.setFilter(STATUS.DEFAULT);
-                break;
-            case 'filter-in_process':
-                this.setFilter(STATUS.IN_PROCESS);
-                break;
-            case 'filter-all':
-                this.setFilter(STATUS.All);
-                break;
-            default:
-                console.log('default');
+        case 'filter-complete':
+            this.setFilter(STATUS.COMPLETE);
+            break;
+        case 'filter-default':
+            this.setFilter(STATUS.DEFAULT);
+            break;
+        case 'filter-in_process':
+            this.setFilter(STATUS.IN_PROCESS);
+            break;
+        case 'filter-all':
+            this.setFilter(STATUS.All);
+            break;
+        default:
+            console.log('default');
         }
     }
 
     setFilter = (action) => {
-        const tasksList = this.state.tasks;
+        let tasksList = this.state.tasks;
+        if (this.state.isSearched) {
+            tasksList = this.state.searchedTasks;
+        }
         if (!action) {
             this.setState({
                 searchedTasks: tasksList,
@@ -77,7 +81,7 @@ class Content extends Component {
                 e.status === action,
             );
             this.setState({
-                isSearched: true,
+                isFiltered: true,
                 isFilterError: false,
             });
             if (currentTaskList.length) {
@@ -90,28 +94,29 @@ class Content extends Component {
                 });
             }
         }
+        console.log(statusList[action]);
     }
 
     switchTasksAction = (action, id, name, event) => {
         console.log(action);
         switch (action) {
-            case 'delete':
-                this.deleteTask(id, event);
-                break;
-            case 'save':
-                this.saveTask(id, name, event);
-                break;
-            case 'status-process':
-                this.setStatusProcess(id, event);
-                break;
-            case 'status-complete':
-                this.setStatusComplete(id);
-                break;
-            case 'filter-complete':
-                console.log('filter-complete');
-                break;
-            default:
-                console.log('default');
+        case 'delete':
+            this.deleteTask(id, event);
+            break;
+        case 'save':
+            this.saveTask(id, name, event);
+            break;
+        case 'status-process':
+            this.setStatusProcess(id, event);
+            break;
+        case 'status-complete':
+            this.setStatusComplete(id);
+            break;
+        case 'filter-complete':
+            console.log('filter-complete');
+            break;
+        default:
+            console.log('default');
         }
     }
 
@@ -127,10 +132,7 @@ class Content extends Component {
                 status: STATUS.DEFAULT,
             };
             this.state.tasks.unshift(task);
-            this.setState({
-                isSearched: false,
-                searchValue: '',
-            });
+            this.resetPrevChanges();
             this.setChanges(this.state.tasks);
             this.sendToDB(this.state.tasks);
         }
@@ -170,6 +172,7 @@ class Content extends Component {
         const currentTaskList = this.state.tasks.filter(e =>
             e.id !== id,
         );
+        this.resetPrevChanges();
         this.setChanges(currentTaskList);
         this.sendToDB(currentTaskList);
     }
@@ -215,7 +218,13 @@ class Content extends Component {
             tasks: currentTaskList,
         });
     }
-
+    resetPrevChanges = () => {
+        this.setState({
+            isSearched: false,
+            isFiltered: false,
+            searchValue: '',
+        });
+    }
     sendToDB = (tasks) => {
         const taskData = JSON.stringify(tasks);
         window.localStorage.setItem('todo', taskData);
@@ -226,6 +235,7 @@ class Content extends Component {
         const { addValue,
             searchValue,
             isSearched,
+            isFiltered,
             searchedTasks,
             isFilterError,
             tasks } = this.state;
@@ -242,7 +252,7 @@ class Content extends Component {
                         isSearched={isSearched}
                     />
                     <TaskContainer
-                        todos={isSearched ? searchedTasks : tasks}
+                        todos={(isSearched || isFiltered) ? searchedTasks : tasks}
                         error={isFilterError}
                         switchAction={this.switchTasksAction}
                     />

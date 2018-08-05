@@ -4,7 +4,7 @@ import '../../styles/common-style.scss';
 
 const FilterItem = ({ filter, action, onFilterInit }) => {
     const handleFilter = (event) => {
-        onFilterInit(action, event);
+        onFilterInit(action, filter, event);
     };
 
     return (

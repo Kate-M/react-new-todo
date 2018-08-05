@@ -10,10 +10,15 @@ class FilterContainer extends Component {
         super(props);
         this.state = {
             isFilterOpen: false,
+            filterName: 'ALL',
         };
     }
-    setFilter = (action, event) => {
+    setFilter = (action, filter, event) => {
+        this.setState({
+            filterName: filter,
+        });
         this.props.onSubmitFilter(action, event);
+        this.openFilter();
     }
     openFilter = () => {
         this.setState({
@@ -23,11 +28,11 @@ class FilterContainer extends Component {
 
     render() {
         const { action } = this.props;
-        const { isFilterOpen } = this.state;
+        const { isFilterOpen, filterName } = this.state;
         return (
             <div className={`control-item ${action}-task open-${isFilterOpen}`}>
                 <a className={`${action}-btn`} onClick={this.openFilter}>
-                    <span className="filter-active">All</span>
+                    <span className="filter-active">{filterName.replace('_', ' ')}</span>
                 </a>
                 <ul className="filter-select">
                     {STATUS_LIST.map(e => (

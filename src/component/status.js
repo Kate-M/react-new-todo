@@ -6,4 +6,3 @@ export {
     statusOfTask,
     statusList,
 };
-
