@@ -1,0 +1,20 @@
+.controls-task-main{
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+    z-index: 5;
+    input {
+        min-width: 200px;
+        height: 100%;
+        border: 1px solid #E7E7E7;
+        border-right: 0;
+        padding: 0 5px;
+        border-radius:  3px 0 0 3px;
+        @media screen and (max-width: 767px) {
+            width:100%;
+        }
+    }
+}
