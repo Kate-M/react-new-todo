@@ -15,8 +15,8 @@ const FilterItem = ({ filter, action, onFilterInit }) => {
 };
 
 FilterItem.propTypes = {
-    action: PropTypes.string,
-    filter: PropTypes.string,
+    action: PropTypes.oneOf(['filter-default', 'filter-in_process', 'filter-complete', 'filter-all']),
+    filter: PropTypes.string.isRequired,
     onFilterInit: PropTypes.func,
 };
 

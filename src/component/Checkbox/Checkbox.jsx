@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { statusOfTask as STATUS } from '../status';
 import '../../styles/common-style.scss';
 import './Checkbox.scss';
 
@@ -23,21 +24,21 @@ class Checkbox extends Component {
                 type="checkbox"
                 className="btn-status-complete"
                 onChange={this.handleCheckboxChange}
-                data-checked={status === '2' ? 'checked' : ''}
+                data-checked={status === STATUS.COMPLETE ? 'checked' : ''}
             />
         );
     }
 }
 
 Checkbox.propTypes = {
-    action: PropTypes.string,
-    status: PropTypes.string,
+    action: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
     onActionSubmit: PropTypes.func,
 };
 
 Checkbox.defaultProps = {
-    action: '',
-    status: '',
+    action: 'status-complete',
+    status: STATUS.DEFAULT,
     onActionSubmit: () => {},
 };
 

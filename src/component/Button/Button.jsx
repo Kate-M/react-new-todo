@@ -16,8 +16,8 @@ const Button = ({ action, status, onActionSubmit }) => {
 };
 
 Button.propTypes = {
-    action: PropTypes.string,
-    status: PropTypes.string,
+    action: PropTypes.oneOf(['edit', 'cancel', 'save', 'delete', 'status-process']),
+    status: PropTypes.string.isRequired,
     onActionSubmit: PropTypes.func,
 };
 

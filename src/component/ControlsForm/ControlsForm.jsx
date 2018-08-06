@@ -29,10 +29,10 @@ const ControlsForm = ({ action, placeholder, value, onTextChange, onSubmitTask, 
 };
 
 ControlsForm.propTypes = {
-    action: PropTypes.string,
-    submitAction: PropTypes.string,
+    action: PropTypes.string.isRequired,
+    submitAction: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.string.isRequired,
     onTextChange: PropTypes.func,
     onSubmitTask: PropTypes.func,
 };

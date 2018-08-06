@@ -32,7 +32,7 @@ const TaskContainer = ({ todos, switchAction, error }) => {
 };
 
 TaskContainer.propTypes = {
-    todos: PropTypes.array,
+    todos: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
     switchAction: PropTypes.func,
 };
 

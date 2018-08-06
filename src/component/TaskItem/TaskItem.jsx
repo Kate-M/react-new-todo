@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Checkbox from '../Checkbox/Checkbox';
+import { statusOfTask as STATUS } from '../status';
 import '../../styles/common-style.scss';
 import './TaskItem.scss';
 
@@ -126,14 +127,14 @@ class TaskItem extends Component {
 }
 
 TaskItem.propTypes = {
-    todo: PropTypes.object,
-    status: PropTypes.string,
+    todo: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    status: PropTypes.oneOf([STATUS.DEFAULT, STATUS.IN_PROCESS, STATUS.COMPLETE]).isRequired,
     onInitAction: PropTypes.func,
 };
 
 TaskItem.defaultProps = {
     todo: {},
-    status: '',
+    status: STATUS.DEFAULT,
     onInitAction: () => { },
 };
 export default TaskItem;

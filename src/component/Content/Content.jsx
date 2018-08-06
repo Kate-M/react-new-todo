@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ControlsTasks from '../ControlsTasks/ControlsTasks';
 import TaskContainer from '../TaskContainer/TaskContainer';
 import store from '../store';
-import { statusOfTask as STATUS, statusList } from '../status';
+import { statusOfTask as STATUS } from '../status';
 import '../../styles/common-style.scss';
 import './Content.scss';
 
@@ -13,11 +12,10 @@ class Content extends Component {
         this.state = {
             addValue: '',
             searchValue: '',
+            currentStatus: '',
             isSearched: false,
             isFiltered: false,
             tasks: [...store],
-            searchedTasks: [],
-            isFilterError: false,
         };
     }
 
@@ -51,16 +49,16 @@ class Content extends Component {
         event.preventDefault();
         switch (action) {
         case 'filter-complete':
-            this.setFilter(STATUS.COMPLETE);
+            this.setFilterValue(STATUS.COMPLETE);
             break;
         case 'filter-default':
-            this.setFilter(STATUS.DEFAULT);
+            this.setFilterValue(STATUS.DEFAULT);
             break;
         case 'filter-in_process':
-            this.setFilter(STATUS.IN_PROCESS);
+            this.setFilterValue(STATUS.IN_PROCESS);
             break;
         case 'filter-all':
-            this.setFilter(STATUS.All);
+            this.setFilterValue(STATUS.All);
             break;
         default:
             console.log('default');
@@ -80,9 +78,6 @@ class Content extends Component {
             break;
         case 'status-complete':
             this.setStatusComplete(id);
-            break;
-        case 'filter-complete':
-            console.log('filter-complete');
             break;
         default:
             console.log('default');
@@ -107,29 +102,28 @@ class Content extends Component {
         }
     }
 
+    filterTask = () => {
+        let currentTodos = this.state.tasks;
+        if (this.state.isSearched) {
+            currentTodos = currentTodos.filter(e =>
+                e.name.toLowerCase().startsWith(this.state.searchValue.toLowerCase()),
+            );
+        }
+        if (this.state.isFiltered) {
+            currentTodos = currentTodos.filter(e =>
+                e.status === this.state.currentStatus,
+            );
+        }
+
+        return currentTodos;
+    };
+
     searchTask = (event) => {
-        const tasksList = this.state.tasks;
-        // let tasksList = this.state.tasks;
-        // if (this.state.isFiltered) {
-        //     tasksList = this.state.searchedTasks;
-        // }
-        const currentTaskList = tasksList.filter(e =>
-            e.name.toLowerCase().startsWith(event.toLowerCase()),
-        );
         this.setState({
             isSearched: true,
             isFilterError: false,
             searchValue: event,
         });
-        if (currentTaskList.length) {
-            this.setState({
-                searchedTasks: currentTaskList,
-            });
-        } else {
-            this.setState({
-                isFilterError: true,
-            });
-        }
     }
 
     resetSearchTask = () => {
@@ -140,35 +134,17 @@ class Content extends Component {
         });
     }
 
-    setFilter = (action) => {
-        this.setState({
-            isFilterError: false,
-        });
-        let tasksList = this.state.tasks;
-        if (this.state.isSearched) {
-            tasksList = this.state.searchedTasks;
-        }
+    setFilterValue = (action) => {
         if (!action) {
             this.setState({
-                searchedTasks: tasksList,
+                isFiltered: false,
             });
         } else {
-            const currentTaskList = tasksList.filter(e =>
-                e.status === action,
-            );
             this.setState({
-                isFiltered: true,
                 isFilterError: false,
+                isFiltered: true,
+                currentStatus: action,
             });
-            if (currentTaskList.length) {
-                this.setState({
-                    searchedTasks: currentTaskList,
-                });
-            } else {
-                this.setState({
-                    isFilterError: true,
-                });
-            }
         }
     }
 
@@ -177,7 +153,6 @@ class Content extends Component {
         const currentTaskList = this.state.tasks.filter(e =>
             e.id !== id,
         );
-        this.resetPrevChanges();
         this.setChanges(currentTaskList);
         this.sendToDB(currentTaskList);
     }
@@ -236,19 +211,15 @@ class Content extends Component {
     }
 
     render() {
-        const { action } = this.props;
         const { addValue,
             searchValue,
-            isSearched,
-            isFiltered,
-            searchedTasks,
-            isFilterError,
-            tasks } = this.state;
+            isSearched } = this.state;
+
+        const todos = this.filterTask();
         return (
             <main>
                 <div className="container">
                     <ControlsTasks
-                        action={action}
                         onSubmitTask={this.switchControlsAction}
                         onFilter={this.switchFiltersAction}
                         onTextChange={this.switchTaskValueChange}
@@ -257,8 +228,8 @@ class Content extends Component {
                         isSearched={isSearched}
                     />
                     <TaskContainer
-                        todos={(isSearched || isFiltered) ? searchedTasks : tasks}
-                        error={isFilterError}
+                        todos={todos}
+                        error={!todos.length}
                         switchAction={this.switchTasksAction}
                     />
                 </div>
@@ -266,14 +237,6 @@ class Content extends Component {
         );
     }
 }
-
-Content.propTypes = {
-    action: PropTypes.string,
-};
-
-Content.defaultProps = {
-    action: '',
-};
 
 export default Content;
 

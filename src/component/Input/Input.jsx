@@ -19,10 +19,10 @@ const Input = ({ action, placeholder, optionalClass, value, onTextChange }) => {
 };
 
 Input.propTypes = {
-    action: PropTypes.string,
+    action: PropTypes.oneOf(['add', 'search', 'edit']),
     placeholder: PropTypes.string,
     optionalClass: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.string.isRequired,
     onTextChange: PropTypes.func,
 };
 

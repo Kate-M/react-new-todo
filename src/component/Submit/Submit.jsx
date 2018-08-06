@@ -8,7 +8,7 @@ const Submit = ({ action, btnSize }) => (
 );
 
 Submit.propTypes = {
-    action: PropTypes.string,
+    action: PropTypes.oneOf(['add', 'reset']),
     btnSize: PropTypes.string,
 };
 
