@@ -67,38 +67,7 @@ class Content extends Component {
         }
     }
 
-    setFilter = (action) => {
-        let tasksList = this.state.tasks;
-        if (this.state.isSearched) {
-            tasksList = this.state.searchedTasks;
-        }
-        if (!action) {
-            this.setState({
-                searchedTasks: tasksList,
-            });
-        } else {
-            const currentTaskList = tasksList.filter(e =>
-                e.status === action,
-            );
-            this.setState({
-                isFiltered: true,
-                isFilterError: false,
-            });
-            if (currentTaskList.length) {
-                this.setState({
-                    searchedTasks: currentTaskList,
-                });
-            } else {
-                this.setState({
-                    isFilterError: true,
-                });
-            }
-        }
-        console.log(statusList[action]);
-    }
-
     switchTasksAction = (action, id, name, event) => {
-        console.log(action);
         switch (action) {
         case 'delete':
             this.deleteTask(id, event);
@@ -140,6 +109,10 @@ class Content extends Component {
 
     searchTask = (event) => {
         const tasksList = this.state.tasks;
+        // let tasksList = this.state.tasks;
+        // if (this.state.isFiltered) {
+        //     tasksList = this.state.searchedTasks;
+        // }
         const currentTaskList = tasksList.filter(e =>
             e.name.toLowerCase().startsWith(event.toLowerCase()),
         );
@@ -165,6 +138,38 @@ class Content extends Component {
             isSearched: false,
             isFilterError: false,
         });
+    }
+
+    setFilter = (action) => {
+        this.setState({
+            isFilterError: false,
+        });
+        let tasksList = this.state.tasks;
+        if (this.state.isSearched) {
+            tasksList = this.state.searchedTasks;
+        }
+        if (!action) {
+            this.setState({
+                searchedTasks: tasksList,
+            });
+        } else {
+            const currentTaskList = tasksList.filter(e =>
+                e.status === action,
+            );
+            this.setState({
+                isFiltered: true,
+                isFilterError: false,
+            });
+            if (currentTaskList.length) {
+                this.setState({
+                    searchedTasks: currentTaskList,
+                });
+            } else {
+                this.setState({
+                    isFilterError: true,
+                });
+            }
+        }
     }
 
     deleteTask = (id, event) => {
