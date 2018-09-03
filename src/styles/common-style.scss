@@ -147,6 +147,8 @@ img {
 }
 .btn-lg {
     border-radius: 3px;
+    height: 65px;
+    width: 65px;
     padding: 0 10px;
     min-width: 130px;
     &:not(:last-child) {
