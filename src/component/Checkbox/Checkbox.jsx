@@ -4,6 +4,11 @@ import { statusOfTask as STATUS } from '../status';
 import '../../styles/common-style.scss';
 import './Checkbox.scss';
 
+/**
+ * The only true button.
+ *
+ * @visibleName Checkbox 🐙
+ */
 class Checkbox extends Component {
     constructor(props) {
         super(props);

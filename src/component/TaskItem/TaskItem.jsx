@@ -12,7 +12,10 @@ class TaskItem extends Component {
         super(props);
         this.state = { ...this.props.todo };
     }
-
+    /**
+     * The onActionSubmit to all.
+     * @public
+    */
     onActionSubmit = (action, event) => {
         const { todo, onInitAction } = this.props;
         const { name } = this.state;
@@ -23,17 +26,26 @@ class TaskItem extends Component {
             event,
         );
     };
-
+    /**
+     * The to all.
+     * @public
+    */
     onTextChange = (event) => {
         this.setState({
             name: event,
         });
     }
-
+    /**
+     * The to all.
+     * @public
+    */
     setComplete = (action, event) => {
         this.onActionSubmit(action, event);
     }
-
+    /**
+     * The to all.
+     * @public
+    */
     switchAction = (action, event) => {
         event.preventDefault();
         switch (action) {
@@ -53,27 +65,39 @@ class TaskItem extends Component {
             console.log('default');
         }
     }
-
+    /**
+     * The to all.
+     * @public
+    */
     editTask = () => {
         this.setState({
             editable: true,
         });
     }
-
+    /**
+     * The to all.
+     * @public
+    */
     cancelTask = () => {
         this.setState({
             name: this.props.todo.name,
             editable: false,
         });
     }
-
+    /**
+     * The to all.
+     * @public
+    */
     saveChangeTask = (action, event) => {
         this.setState({
             editable: false,
         });
         this.onActionSubmit(action, event);
     }
-
+    /**
+     * The to all.
+     * @public
+    */
     deleteTask = (action, event) => {
         this.onActionSubmit(action, event);
     }

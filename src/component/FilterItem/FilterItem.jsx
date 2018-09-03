@@ -15,8 +15,23 @@ const FilterItem = ({ filter, action, onFilterInit }) => {
 };
 
 FilterItem.propTypes = {
+    /**
+    * A prop that should not be visible in the documentation.
+    *
+    * @ignore
+    */
     action: PropTypes.oneOf(['filter-default', 'filter-in_process', 'filter-complete', 'filter-all']),
+    /**
+    * A prop that should not be visible in the documentation.
+    *
+    * @ignore
+    */
     filter: PropTypes.string.isRequired,
+    /**
+    * A prop that should not be visible in the documentation.
+    *
+    * @ignore
+    */
     onFilterInit: PropTypes.func,
 };
 
