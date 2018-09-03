@@ -1,9 +1,5 @@
-##Quick Start Todo App
+##Quick Start
 
 npm i
 
 npm start
-
-##Quick Start Storybook
-
-npm run storybook

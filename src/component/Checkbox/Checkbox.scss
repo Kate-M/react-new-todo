@@ -22,8 +22,7 @@
     &::-ms-check {
         display: none;
     }
-    &[data-checked="checked"],
-    &:checked{
+    &[data-checked="checked"] {
         &::-ms-check {
             display: block;
         }
