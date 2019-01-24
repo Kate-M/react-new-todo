@@ -9,10 +9,14 @@ const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const cssLoaders = [
+const scssLoaders = [
     'css-loader?',
     '!postcss-loader',
     '!sass-loader',
+].join('');
+const cssLoaders = [
+    'css-loader?',
+    '!postcss-loader',
 ].join('');
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -138,6 +142,13 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [scssLoaders],
+                }),
+            },
+            {
+                test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [cssLoaders],

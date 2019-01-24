@@ -5,6 +5,7 @@ import store from '../store';
 import { statusOfTask as STATUS } from '../status';
 import '../../styles/common-style.scss';
 import './Content.scss';
+import StyledButton from '../StyledButton/StyledButton.js';
 
 class Content extends Component {
     constructor(props) {
@@ -219,6 +220,7 @@ class Content extends Component {
         return (
             <main>
                 <div className="container">
+                    <StyledButton>Fuck it! I am out!</StyledButton>
                     <ControlsTasks
                         onSubmitTask={this.switchControlsAction}
                         onFilter={this.switchFiltersAction}
